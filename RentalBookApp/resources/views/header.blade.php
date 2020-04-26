@@ -12,6 +12,9 @@
                     @endauth
                     <a href="{{ url('/home') }}">マイページ</a>
                     <a href="{{ url('/home') }}">お知らせ</a>
+                    @if (session('status'))
+                    <a href="{{ url('/home') }}">{{ session('status') }}</a>   
+                    @endif
                 </div>
             @endif
        </div>

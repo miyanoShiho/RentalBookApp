@@ -50,6 +50,8 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        $errorMessage = $exception->getMessage();
+        Log::error("Error occured : request_url=" . $request->fullUrl() . ', errorMessage=' . $errorMessage);
         return parent::render($request, $exception);
     }
 }
