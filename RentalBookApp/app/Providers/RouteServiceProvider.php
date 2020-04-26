@@ -17,11 +17,17 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespace = 'App\Http\Controllers';
 
     /**
+     * The path to the "新規登録完了用" route for your application.
+     *
+     * @var string
+     */
+    public const REGISTAR_HOME = '/home';
+    /**
      * The path to the "home" route for your application.
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/';
 
     /**
      * Define your route model bindings, pattern filters, etc.
