@@ -1,8 +1,8 @@
        <div class="flex-center position-ref">
             @if (Route::has('login'))
                 <div class="top-right links">
+                    <a href="{{ url('/home') }}">Home</a>
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
                         <a href="{{ url('/home') }}">マイページ</a>
                         <a href="{{ url('/home') }}">お知らせ</a>
                     @else
