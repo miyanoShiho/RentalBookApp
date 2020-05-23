@@ -24,3 +24,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/bookdetail', 'BookDetailController@index')->name('bookdetail');
 
+Route::get('/mypage', 'MyPageController@index')->name('mypage');
+

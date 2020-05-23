@@ -1,15 +1,8 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>図書詳細画面</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <!-- Styles -->
-        <link href="{{ asset('css/common.css') }}" rel="stylesheet">
+    @include('common')
+    <title>図書詳細画面</title>
     </head>
     <body>
         @include('header')
@@ -21,6 +14,6 @@
         </div>
         <h4 >鬼滅の刃18巻</h4>
             <p >rentalTest</p>
-            <a href="{{ url('/home') }}">借りる</a> 
+            <a href="{{ url('/home') }}">借りる</a>
     </body>
 </html>
