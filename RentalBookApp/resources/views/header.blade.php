@@ -2,25 +2,24 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     <ul>
-                    <li>
-                    <a href="{{ url('/') }}">Home</a>
-                    </li>
+
                     @auth
-                    <li>
-                        <a href="{{ url('/mypage') }}">マイページ</a>
-                    </li>
+
                     <li style="margin-top:-10px">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ __('お知らせ') }} <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('bookdetail') }}">
-                                        {{ __('太郎が書籍「books」をレンタルしました') }}
+                                        {{ __('太郎が書籍「books」をレンタルしました  2020/03/25 23:59') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('bookdetail') }}">
-                                        <b style="color:red">{{ __('NEW') }}</b>{{ __(' 次郎が書籍「books2」をレンタルしました') }}
+                                        <b style="color:red">{{ __('NEW') }}</b>{{ __(' 次郎が書籍「books2」をレンタルしました 2020/03/25 23:58') }}
                                     </a>
                                 </div>
+                    </li>
+                    <li>
+                        <a href="{{ url('/mypage') }}">マイページ</a>
                     </li>
                     @else
                     <li>
@@ -32,6 +31,9 @@
                      </li>
                         @endif
                     @endauth
+                    <li>
+                    <a href="{{ url('/') }}">Home</a>
+                    </li>
                     @if (session('status'))
                     <a href="{{ url('/home') }}">{{ session('status') }}</a>
                     @endif
