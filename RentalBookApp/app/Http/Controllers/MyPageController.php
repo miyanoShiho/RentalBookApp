@@ -15,7 +15,7 @@ class MyPageController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('mypage');
     }
 
     /**
@@ -29,28 +29,24 @@ class MyPageController extends Controller
         return view('mypage', ['books' => $books]);
     }
 
-    public function bookSelect(Request $request)
+    public function selectMybookList(Request $request)
     {
-        // ユーザーID取得
-        $id = Auth::id();
-        // 押されたボタンの値
-        $link = $request->input('link');
-        $books = '';
-        switch ($link) {
-            case 'mybooksLink':
-                $books = Book::userIdEqual($id)->get();
-                break;
-            case 'giveBooksLink':
-                $books = Book::userIdEqual($id)->rentalStatusEqual(1)->get();
-                break;
-            case 'takeBooksLink':
-                $books = Book::userIdEqual($id)->rentalStatusEqual(0)->get();
-                break;
-            default:
-                $books = Book::all();
-                break;
-        }
+        // ユーザーID取得-> middlewere before
+        //print_r($request->data[0]['userId']);
+        $books = Book::userIdEqual($request->data[0]['userId'])->get();
+        // 画面表示-> middlewere after
+        return view('mypage', ['books' => $books]);
+    }
 
+    public function selectGivebookList(Request $request)
+    {
+        $books = Book::userIdEqual($request->data[0]['userId'])->rentalStatusEqual(1)->get();
+        return view('mypage', ['books' => $books]);
+    }
+
+    public function selectTakebookList(Request $request)
+    {
+        $books = Book::userIdEqual($request->data[0]['userId'])->rentalStatusEqual(0)->get();
         return view('mypage', ['books' => $books]);
     }
 }

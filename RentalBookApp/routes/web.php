@@ -25,4 +25,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/bookdetail', 'BookDetailController@index')->name('bookdetail');
 
 Route::get('/mypage', 'MyPageController@index')->name('mypage');
-Route::post('/mypage/bookSelect', 'MyPageController@bookSelect');
+Route::get('/mypage/selectMybookList', 'MyPageController@selectMybookList')->name('selectMybookList');
+Route::get('/mypage/selectGivebookList', 'MyPageController@selectGivebookList')->name('selectGivebookList');
+Route::get('/mypage/selectTakebookList', 'MyPageController@selectTakebookList')->name('selectTakebookList');
