@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Book;
+use App\Comment;
 
 class BookDetailController extends Controller
 {
@@ -13,7 +15,7 @@ class BookDetailController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('bookdetail');
     }
 
     /**
@@ -21,8 +23,17 @@ class BookDetailController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('bookdetail');
+        // TODO:図書一覧からbook_idを取得
+        $books = Book::userIdEqual(1)->first();
+        // レンタルステータス読み替え
+        $books->rental_status = $books->rental_status == 0 ? 'レンタル可' : 'レンタル不可';
+        // コメント情報取得
+        $comments = Comment::select()
+            ->join('users', 'users.id', '=', 'comments.user_id')
+            ->where('users.id', $request->data[0]['userId'])->get();
+        //print_r($comments);
+        return view('bookdetail', compact('books', 'comments'));
     }
 }
