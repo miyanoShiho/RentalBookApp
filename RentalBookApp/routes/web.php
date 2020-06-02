@@ -28,3 +28,5 @@ Route::get('/mypage', 'MyPageController@index')->name('mypage');
 Route::get('/mypage/selectMybookList', 'MyPageController@selectMybookList')->name('selectMybookList');
 Route::get('/mypage/selectGivebookList', 'MyPageController@selectGivebookList')->name('selectGivebookList');
 Route::get('/mypage/selectTakebookList', 'MyPageController@selectTakebookList')->name('selectTakebookList');
+
+Route::get('/bookUpload', 'BookUploadController@uplode');
