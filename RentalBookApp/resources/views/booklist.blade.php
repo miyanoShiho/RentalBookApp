@@ -16,13 +16,22 @@ $('.navbar-nav>li>a , .dropdown-menu>a').on('click', function(){
         <div class="title m-b-md">
             図書一覧画面
             </div>
-        <div class="d-flex">
+        <div class="d-flex row">
         @for($i = 1;$i < 5;$i++)
-            <img src="/storage/kimetu18.jpg" width="300" height="300">
+            <div class="col-4 col-md-3">
+                <img src="/storage/kimetu18.jpg" class="w-100">
+                <div class="">
+                    <span>タイトル</span>
+                </div>
+                <div class="">
+                    <span>ユーザー名</span>
+                </div>
+                <div class="">
+                    <span>レンタル可</span>
+                </div>
+            </div>
         @endfor
         </div>
         <h4 >鬼滅の刃18巻</h4>
-            <p >rentalTest</p>
-            <a href="{{ url('bookdetail') }}">詳細を見る</a>
     </body>
 </html>
