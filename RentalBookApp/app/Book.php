@@ -8,6 +8,29 @@ class Book extends Model
 {
 
     /**
+     * booksテーブルの主キー
+     *
+     * @var int
+     */
+    protected $primaryKey = 'book_id';
+
+    /**
+     * Bookを所有するUserを取得
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
+
+    /**
+     * BookのCommentを取得
+     */
+    public function comments()
+    {
+        return $this->hasMany('App\Comment', 'book_id');
+    }
+
+    /**
      * モデルのタイムスタンプを更新するかの指示
      *
      * @var bool
