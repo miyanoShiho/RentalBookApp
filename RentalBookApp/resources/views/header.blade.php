@@ -2,10 +2,12 @@
            @if (Route::has('login'))
            <div class="top-right links">
                <ul>
-
+                   <li>
+                       <a href="{{ url('/') }}">ホーム</a>
+                   </li>
                    @auth
 
-                   <li style="margin-top:-10px">
+                   <li style="margin-top:-7px">
                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                            {{ __('お知らせ') }} <span class="caret"></span>
                        </a>
@@ -24,25 +26,23 @@
                    <li>
                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                           {{ __('Logout') }}
+                           {{ __('ログアウト') }}
                        </a>
                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                            @csrf
                        </form>
                    </li>
                    @else
-                   <li>
-                       <a href="{{ route('login') }}">ログイン</a>
-                   </li>
                    @if (Route::has('register'))
                    <li>
                        <a href="{{ route('register') }}">新規登録</a>
                    </li>
                    @endif
-                   @endauth
                    <li>
-                       <a href="{{ url('/') }}">Home</a>
+                       <a href="{{ route('login') }}">ログイン</a>
                    </li>
+                   @endauth
+
                    @if (session('status'))
                    <a href="{{ url('/home') }}">{{ session('status') }}</a>
                    @endif
