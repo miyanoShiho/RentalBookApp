@@ -9,7 +9,7 @@ class BookUploadController extends Controller
 
     public function uplode()
     {
-        return view('book_upload/uplode');
+        return view('uplode');
     }
 
     public function save(){
