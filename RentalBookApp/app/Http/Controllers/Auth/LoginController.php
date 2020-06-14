@@ -37,4 +37,16 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    protected function authenticated(\Illuminate\Http\Request $request, $user)
+    {
+        // セッションにユーザー情報を追加
+        $user = \Auth::user();
+        if ($user) {
+            session(['user_id' => \Auth::id(), 'user_name' => $user->name]);
+        }
+    
+        // ログイン後のリダイレクト
+        return redirect()->intended($this->redirectTo);
+    }
 }
