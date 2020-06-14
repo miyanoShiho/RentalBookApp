@@ -1,4 +1,4 @@
-@extends('layouts.app');
+@extends('layouts.app')
 
 @section('content')
     <div class="container">
@@ -6,7 +6,8 @@
             <div class="col-md-2">
             </div>
             <div class="col-md-8">
-                <form>
+                <form action="bookSave" method="post" enctype="multipart/form-data" id="bookForm">
+                    @csrf
                     <!-- imageForm -->
                     <div class="row">
                         <div class="col-md-4">
@@ -27,13 +28,14 @@
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label" for="TITLE">題名：</label>
                         <div class="col-md-10">
-                            <input name="title" type="text" class="form-control" id="TITLE">
+                            <input name="title" type="text" class="form-control" id="TITLE" value="{{ old('title') }}">
                         </div>
                     </div>
+                    <!-- explanationForm -->
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label" for="EXPLANATION">説明：</label>
                         <div class="col-md-10">
-                            <textarea name="body" class="form-control" id="EXPLANATION"></textarea>
+                            <textarea name="body" class="form-control" id="EXPLANATION" value="{{ old('body') }}"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">

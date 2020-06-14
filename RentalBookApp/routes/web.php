@@ -14,10 +14,8 @@ use Illuminate\Support\Facades\Auth;
 |
  */
 
-Route::get('/', function () {
-    //return view('welcome');
-    return view('booklist');
-});
+
+Route::get('/', 'BookListController@index')->name('bookList');
 
 Auth::routes();
 
@@ -30,4 +28,5 @@ Route::get('/mypage/selectMybookList', 'MyPageController@selectMybookList')->nam
 Route::get('/mypage/selectGivebookList', 'MyPageController@selectGivebookList')->name('selectGivebookList');
 Route::get('/mypage/selectTakebookList', 'MyPageController@selectTakebookList')->name('selectTakebookList');
 
-Route::get('/bookUpload', 'BookUploadController@uplode');
+Route::get('/bookUpload', 'BookUploadController@uplode')->name('bookUpload')->middleware('auth:web');
+Route::post('/bookSave', 'BookUploadController@save')->name('bookSave');
