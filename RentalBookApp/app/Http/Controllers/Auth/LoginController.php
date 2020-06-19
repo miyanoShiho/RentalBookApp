@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -41,9 +42,9 @@ class LoginController extends Controller
     protected function authenticated(\Illuminate\Http\Request $request, $user)
     {
         // セッションにユーザー情報を追加
-        $user = \Auth::user();
+        $user = Auth::user();
         if ($user) {
-            session(['user_id' => \Auth::id(), 'user_name' => $user->name]);
+            session(['user_id' => Auth::id(), 'user_name' => $user->name]);
         }
     
         // ログイン後のリダイレクト
