@@ -1,4 +1,4 @@
-@extends('layouts.app');
+@extends('layouts.app')
 
 @section('content')
     <div class="container">
@@ -6,17 +6,21 @@
             <div class="col-md-2">
             </div>
             <div class="col-md-8">
-                <form>
+                <form action="bookSave" method="post" enctype="multipart/form-data" id="bookForm">
+                    @csrf
                     <!-- imageForm -->
                     <div class="row">
                         <div class="col-md-4">
                         </div>
                         <div class="col-md-6">
-                            <img class="w-100" id="bookImageDisplay"  src="/storage/kimetu18.jpg"/>
+                            <img class="w-100" id="bookImageDisplay"  src=""/>
                         </div>
                         <div class="col-md-2">
                         </div>
                     </div>
+                    @if ($errors->has('bookImagePath'))
+                    <div class="alert-danger">{{$errors->first('bookImagePath')}}</div>
+                    @endif
                     <div class="form-group row">
                         <label class="col-md-2" for="File">本の画像：</label>
                         <div class="col-md-10">
@@ -24,16 +28,23 @@
                         </div>
                     </div>
                     <!-- titleForm -->
+                    @if ($errors->has('title'))
+                    <div class="alert-danger">{{$errors->first('title')}}</div>
+                    @endif
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label" for="TITLE">題名：</label>
                         <div class="col-md-10">
-                            <input name="title" type="text" class="form-control" id="TITLE">
+                            <input name="title" type="text" class="form-control" id="TITLE" value="{{ old('title') }}">
                         </div>
                     </div>
+                    <!-- explanationForm -->
+                    @if ($errors->has('body'))
+                    <div class="alert-danger">{{$errors->first('body')}}</div>
+                    @endif
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label" for="EXPLANATION">説明：</label>
                         <div class="col-md-10">
-                            <textarea name="body" class="form-control" id="EXPLANATION"></textarea>
+                            <textarea name="body" class="form-control" id="EXPLANATION" >{{ old('body', 'おすすめです！') }}</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
