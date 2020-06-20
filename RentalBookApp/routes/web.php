@@ -22,6 +22,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/bookdetail', 'BookDetailController@index')->name('bookdetail');
+Route::post('/bookdetail/commentSave', 'BookDetailController@commentSave');
+Route::post('/bookdetail/commentDelete', 'BookDetailController@commentDelete');
 
 Route::get('/mypage', 'MyPageController@index')->name('mypage');
 Route::get('/mypage/selectMybookList', 'MyPageController@selectMybookList')->name('selectMybookList');

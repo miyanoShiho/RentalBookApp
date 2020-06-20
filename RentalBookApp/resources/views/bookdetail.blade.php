@@ -36,7 +36,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <label>ユーザー名：{{ __(Auth::user()->name) }}</label></td>
+                                    <label>ユーザー名：テスト</label></td>
                             </tr>
 
                             <tr>
@@ -45,16 +45,29 @@
                                     <label>{{$comment->name}}</label>
                                     <br>
                                     <label>{{ $comment->body }}</label>
+                                    <form action="/bookdetail/commentDelete" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="comment_id" value="{{$comment->comment_id}}">
+                                        <input type="submit" class="float-right" value="削除">
+                                    </form>
                                     <hr>
                                     @endforeach
                                 </td>
                             </tr>
-
-                            <tr>
-                                <td>
-                                    <input type="text" style="width:90%" value="コメント">
-                                    <input type="submit" style="color:#ffffff;background-color:#0000ff;" value="確定"></td>
-                            </tr>
+                            <form action="/bookdetail/commentSave" method="POST">
+                                @csrf
+                                <tr>
+                                    <td>
+                                        <textarea cols="80" rows="5" placeholder="コメント" name="comment"></textarea>
+                                </tr>
+                                <input type="hidden" name="book_id" value="1">
+                                <tr>
+                                    <td>
+                                        <input type="submit" class="btn btn-outline-secondary" style="width:100%" value="コメント送信">
+                                    </td>
+                                </tr>
+                            </form>
+                            @if($displayFlg != 3)
                             <tr>
                                 <td>
                                     <input type="submit" class="btn btn-outline-secondary" style="width:100%" value="レンタル申し込み">
@@ -65,6 +78,7 @@
                                     <input type="submit" class="btn btn-outline-secondary" style="width:100%" value="レンタル終了">
                                 </td>
                             </tr>
+                            @endif
                         </table>
                     </div>
                 </div>
