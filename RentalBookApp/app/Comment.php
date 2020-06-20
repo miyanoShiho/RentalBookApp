@@ -30,10 +30,11 @@ class Comment extends Model
         return $this->belongsTo('App\User', 'user_id');
     }
 
-    //protected $primaryKey = ['comment_id', 'id'];
-
-    // public function user()
-    // {
-    //     return $this->hasOne(User::class);
-    // }
+    /**
+     * 条件：comment_idで取得
+     */
+    public function scopeCommentIdEqual($query, $comment_id)
+    {
+        return $query->where('comment_id', $comment_id);
+    }
 }

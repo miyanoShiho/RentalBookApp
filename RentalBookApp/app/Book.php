@@ -37,14 +37,18 @@ class Book extends Model
      */
     public $timestamps = false;
 
-    // ローカルスコープ　scopeの文字を抜いて呼び出す
-    // 呼び出し方　scopeuserIdEqual　→　userIdEqual
-    public function scopeuserIdEqual($query, $id)
+    /**
+     * 条件：user_idで取得
+     */
+    public function scopeUserIdEqual($query, $id)
     {
         return $query->where('user_id', $id);
     }
 
-    public function scoperentalStatusEqual($query, $status)
+    /**
+     * 条件：rental_statusで取得
+     */
+    public function scopeRentalStatusEqual($query, $status)
     {
         return $query->where('rental_status', $status);
     }

@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <td>
-                    <a href="{{ route('selectMybookList') }}" class="btn btn-outline-secondary mypage-menu">
+                    <a href="{{ route('bookUpload') }}" class="btn btn-outline-secondary mypage-menu">
                         {{ __('アップロード') }}</td>
             </tr>
         </table>
