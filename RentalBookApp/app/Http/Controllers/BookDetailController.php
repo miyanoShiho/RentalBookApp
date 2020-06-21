@@ -25,32 +25,45 @@ class BookDetailController extends Controller
      */
     public function index(Request $request)
     {
-        // TODO:図書一覧からbook_idを取得
-        $books = Book::userIdEqual(1)->first();
-
+        $userId = $request->session()->get('user_id');
+        $books = Book::userIdEqual($userId)->first();
         //　ログインユーザーによる表示分岐
-        if ($request->session()->get('user_id') != null) {
-            if ($request->session()->get('user_id') == $books->user_id) {
+        $displayFlg = 'HIDE_BUTTON';
+        /*
+        下記の条件はレンタル申込・レンタル終了ボタンを非表示とする。
+        ①ログインユーザーと図書の貸出人が一致する場合
+        　図書が貸出可能な場合
+        ②ログインユーザーと図書の貸出人が一致しない場合
+        　図書が貸出中の場合
+        ③ログインユーザーが存在しない場合
+        */
+        //　ログインユーザーが存在する場合
+        if ($userId != null) {
+            if (
+                $userId == $books->user_id
+                && $books->rental_status == '1'
+            ) {
                 //　ログインユーザーと図書の貸出人が一致する場合
-                if ($books->rental_status == 1) {
-                    $displayFlg = 1;
-                } else {
-                    $displayFlg = 0;
-                }
-            } else {
-                // ログインユーザーと図書の貸出人が一致しない場合
-                $displayFlg = 2;
+                //  図書が貸出中の場合
+                //  レンタル申込ボタンを表示する
+                $displayFlg = 'RENTAL_START_BUTTON';
+            } elseif (
+                $userId != $books->user_id
+                && $books->rental_status == '0'
+            ) {
+                //　ログインユーザーと図書の貸出人が一致しない場合
+                //　図書が貸出可能な場合
+                //  レンタル終了ボタンを表示する
+                $displayFlg = 'RENTAL_END_BUTTON';
             }
-        } else {
-            $displayFlg = 3;
         }
 
         // レンタルステータス読み替え
-        $books->rental_status = $books->rental_status == 0 ? 'レンタル可' : 'レンタル不可';
+        $books->rental_status = $books->rental_status == '0' ? 'レンタル可' : 'レンタル不可';
         // コメント情報取得
         $comments = Comment::select()
             ->join('users', 'users.id', '=', 'comments.user_id')
-            ->where('users.id', $request->data[0]['userId'])->get();
+            ->where('users.id', $userId)->get();
 
         //print_r($comments);
         return view('bookdetail', compact('books', 'comments', 'displayFlg'));
@@ -62,6 +75,15 @@ class BookDetailController extends Controller
      */
     public function commentSave(Request $request)
     {
+        //バリデーション
+        $validate_rule = [
+            'comment' => 'required',
+        ];
+        $messages = [
+            'comment.required' => 'コメントが未入力です。'
+        ];
+        $this->validate($request, $validate_rule, $messages);
+
         $comment = new Comment;
         $comment->user_id = $request->session()->get('user_id');
         $comment->book_id = $request->input('book_id');
