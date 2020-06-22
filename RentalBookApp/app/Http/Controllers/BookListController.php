@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Book;
 
 class BookListController extends Controller
 {
+    /**
+     * 図書一覧画面を表示
+     * 
+     */
     public function index(){
-        // $user = Auth::user();
-        return view('booklist');
+        $books = Book::with('user')->paginate(12);
+        return view('booklist', ['books' => $books]);
     }
 }

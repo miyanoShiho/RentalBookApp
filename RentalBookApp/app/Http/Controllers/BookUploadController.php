@@ -57,7 +57,7 @@ class BookUploadController extends Controller
         if(!File::exists($folder_path)) {
             File::makeDirectory($folder_path);
         }
-        $result;
+        $result = false;
         //ストレージにユーザーidフォルダがある場合
         if(File::exists($folder_path)){
             $result = InterventionImage::make($file)->resize(750, 750)->save($folder_path.'/' . $new_file_name );
@@ -65,7 +65,7 @@ class BookUploadController extends Controller
 
         //DBにデータを挿入
         if ($result){
-            $book_image_path = $folder_path.'/'.$new_file_name;
+            $book_image_path = '/storage/'.$user_id.'/'.$new_file_name;
             $book = new Book;
             $book->user_id = $user_id;
             $book->title = $request->title;

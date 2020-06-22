@@ -1,37 +1,41 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-    @include('common')
-    <title>図書一覧画面</title>
-    <script>
-$('.navbar-nav>li>a , .dropdown-menu>a').on('click', function(){
-    if(this.id != 'navbarDropdown'){
-      $('.navbar-collapse').collapse('hide');
-    }
-});
-</script>
-    </head>
-    <body>
-        @include('header')
-        <div class="title m-b-md">
-            図書一覧画面
-            </div>
-        <div class="d-flex row">
-        @for($i = 1;$i < 5;$i++)
-            <div class="col-4 col-md-3">
-                <img src="/storage/kimetu18.jpg" class="w-100">
-                <div class="">
-                    <span>タイトル</span>
-                </div>
-                <div class="">
-                    <span>ユーザー名</span>
-                </div>
-                <div class="">
-                    <span>レンタル可</span>
-                </div>
-            </div>
-        @endfor
+@extends('layouts.app')
+
+@section('cssconf')
+<link href="{{ asset('css/booklist.css') }}" rel="stylesheet">
+
+@section('content')
+<div class="row">
+<div class="col-md-1"></div>
+<div class="col-md-10">
+<div class="d-flex row  books-wrapper">
+    @foreach($books as $book)
+    <div class="col-4 col-md-3 book-wrapper">
+        <img src="{{$book->book_image_path}}" class="w-100">
+        <div class="title">
+            <span>{{$book->title}}</span>
         </div>
-        <h4 >鬼滅の刃18巻</h4>
-    </body>
-</html>
+        <div class="userName">
+            <span>{{$book->user->name}}</span>
+        </div>
+        @if(isset($book->rental_user_id))
+        <div class="rentalStatus disable">
+            <span>レンタル不可</span>
+        </div>
+        @else
+        <div class="rentalStatus enable">
+            <span>レンタル可</span>
+        </div>
+        @endif
+    </div>
+    @endforeach
+</div>
+{{$books->links()}}
+@endsection
+</div>
+<div class="col-md-1"></div>
+</div>
+
+@section('jsconf')
+<script src="{{ asset('/js/common.js') }}"></script>
+@endsection
+
