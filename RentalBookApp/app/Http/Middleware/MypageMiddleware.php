@@ -16,11 +16,7 @@ class MypageMiddleware
      */
     public function handle($request, Closure $next)
     {
-        // TODO：ログイン画面でセッションIDを設定するまでのモック
-        $data = [
-            ['userId' => Auth::id()]
-        ];
-        $request->merge(['data' => $data]);
+
         return $next($request);
         // TODO:$response->status()によるエラーハンドリング
     }
