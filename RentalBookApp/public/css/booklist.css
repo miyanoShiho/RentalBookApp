@@ -1,0 +1,35 @@
+/* .books-wrapper {
+    padding-top: 40px;
+    padding-right: 50px;
+    padding-left: 50px;
+    padding-bottom: 90px;
+} */
+
+.book-wrapper{
+    padding:15px
+}
+
+.book-wrapper .title{
+    border: medium solid black;
+    border-width:2px 2px 1px 2px ;
+    background-color: white;
+}
+
+.book-wrapper .userName{
+    border: medium solid black;
+    border-width:1px 2px 1px 2px ;
+    background-color: white;
+}
+
+.book-wrapper .rentalStatus{
+    border: medium solid black;
+    border-width:1px 2px 2px 2px ;
+}
+
+.book-wrapper .enable{
+    background-color: yellow;
+}
+
+.book-wrapper .disable{
+    background-color: gray;
+}
