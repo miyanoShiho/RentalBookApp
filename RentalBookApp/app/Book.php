@@ -46,6 +46,14 @@ class Book extends Model
     }
 
     /**
+     * 条件：book_idで取得
+     */
+    public function scopeBookIdEqual($query, $id)
+    {
+        return $query->where('book_id', $id);
+    }
+
+    /**
      * 条件：rental_statusで取得
      */
     public function scopeRentalStatusEqual($query, $status)
