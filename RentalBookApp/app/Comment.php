@@ -37,4 +37,12 @@ class Comment extends Model
     {
         return $query->where('comment_id', $comment_id);
     }
+
+    /**
+     * 条件：book_idで取得
+     */
+    public function scopeBookIdEqual($query, $comment_id)
+    {
+        return $query->where('book_id', $comment_id);
+    }
 }

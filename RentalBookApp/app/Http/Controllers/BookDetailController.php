@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Book;
 use App\Comment;
+use App\Notice;
 
 class BookDetailController extends Controller
 {
@@ -84,11 +85,41 @@ class BookDetailController extends Controller
         ];
         $this->validate($request, $validate_rule, $messages);
 
+        //　コメントが初回であるか確認する。
+        $bookId = $request->input('book_id');
+        $userId = $request->session()->get('user_id');
+        $body = $request->input('comment');
+
+        $commentCnt = Comment::bookIdEqual($bookId)->count();
+
         $comment = new Comment;
-        $comment->user_id = $request->session()->get('user_id');
-        $comment->book_id = $request->input('book_id');
-        $comment->body = $request->input('comment');
+        $comment->user_id = $userId;
+        $comment->book_id = $bookId;
+        $comment->body = $body;
         $comment->save();
+
+        // 初回コメントの場合
+        if ($commentCnt == 0) {
+            // お知らせテーブル登録
+            $notice = new Notice;
+            $notice->user_id = $userId;
+            $notice->book_id = $bookId;
+            $notice->body = $body;
+            $notice->save();
+        } else {
+            // 2回目以降
+            // お知らせテーブル登録
+            $comments = Comment::select('user_id')
+                ->distinct()->where('book_id', $bookId)->where('user_id', '<>', $userId)->get();
+
+            foreach ($comments as $target) {
+                $notice = new Notice;
+                $notice->user_id = $target->user_id;
+                $notice->book_id = $bookId;
+                $notice->body = $body;
+                $notice->save();
+            }
+        }
         return redirect()->route('bookdetail');
     }
 
