@@ -21,7 +21,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/bookdetail', 'BookDetailController@index')->name('bookdetail');
+Route::get('/bookdetail/{bookId?}', 'BookDetailController@index')->name('bookdetail');
 Route::post('/bookdetail/commentSave', 'BookDetailController@commentSave');
 Route::post('/bookdetail/commentDelete', 'BookDetailController@commentDelete');
 

@@ -24,10 +24,14 @@ class BookDetailController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request)
+    public function index(Request $request, $bookId = '0')
     {
         $userId = $request->session()->get('user_id');
-        $books = Book::userIdEqual($userId)->first();
+        if ($bookId == '0') {
+            $books = Book::userIdEqual($userId)->first();
+        } else {
+            $books = Book::bookIdEqual($bookId)->first();
+        }
         //　ログインユーザーによる表示分岐
         $displayFlg = 'HIDE_BUTTON';
         /*
@@ -63,11 +67,11 @@ class BookDetailController extends Controller
         $books->rental_status = $books->rental_status == '0' ? 'レンタル可' : 'レンタル不可';
         // コメント情報取得
         $comments = Comment::select()
-            ->join('users', 'users.id', '=', 'comments.user_id')
-            ->where('users.id', $userId)->get();
+            ->where('book_id', $bookId)
+            ->get();
 
         //print_r($comments);
-        return view('bookdetail', compact('books', 'comments', 'displayFlg'));
+        return view('bookdetail', compact('books', 'comments', 'displayFlg', 'bookId'));
     }
 
     /**
@@ -85,11 +89,12 @@ class BookDetailController extends Controller
         ];
         $this->validate($request, $validate_rule, $messages);
 
-        //　コメントが初回であるか確認する。
+        // リクエストパラメータ
         $bookId = $request->input('book_id');
         $userId = $request->session()->get('user_id');
         $body = $request->input('comment');
 
+        //　コメントが初回であるか確認する。
         $commentCnt = Comment::bookIdEqual($bookId)->count();
 
         $comment = new Comment;
@@ -120,7 +125,7 @@ class BookDetailController extends Controller
                 $notice->save();
             }
         }
-        return redirect()->route('bookdetail');
+        return redirect()->route('bookdetail', ['bookId' => $bookId]);
     }
 
     /**
@@ -129,7 +134,9 @@ class BookDetailController extends Controller
      */
     public function commentDelete(Request $request)
     {
+        // リクエストパラメータ
+        $bookId = $request->input('book_id');
         Comment::commentIdEqual($request->input('comment_id'))->delete();
-        return redirect()->route('bookdetail');
+        return redirect()->route('bookdetail', ['bookId' => $bookId]);
     }
 }
