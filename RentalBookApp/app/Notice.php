@@ -28,4 +28,12 @@ class Notice extends Model
     {
         return $this->belongsTo('App\Book', 'book_id');
     }
+
+    /**
+     * 条件：user_idで取得
+     */
+    public function scopeUserIdEqual($query, $id)
+    {
+        return $query->where('user_id', $id);
+    }
 }

@@ -57,12 +57,13 @@
                                 {{ __('お知らせ') }} <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('bookdetail') }}">
-                                    {{ __('太郎が書籍「books」をレンタルしました  2020/03/25 23:59') }}
+                                @if (session('notices'))
+                                @foreach(session('notices') as $notice)
+                                <a class="dropdown-item" href="{{ route('bookdetail',['bookId'=> $notice->book_id]) }}">
+                                    {{ __($notice->body) }}
                                 </a>
-                                <a class="dropdown-item" href="{{ route('bookdetail') }}">
-                                    <b style="color:red">{{ __('NEW') }}</b>{{ __(' 次郎が書籍「books2」をレンタルしました 2020/03/25 23:58') }}
-                                </a>
+                                @endforeach
+                                @endif
                             </div>
                         </li>
                         <li class="nav-item">
