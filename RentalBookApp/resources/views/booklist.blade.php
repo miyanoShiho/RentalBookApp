@@ -2,6 +2,7 @@
 
 @section('cssconf')
 <link href="{{ asset('css/booklist.css') }}" rel="stylesheet">
+@endsection
 
 @section('content')
 <div class="row">
@@ -11,22 +12,23 @@
             @foreach($books as $book)
             <div class="col-4 col-md-3 book-wrapper">
                 <a href="{{ route('bookdetail', ['book_id' => $book->book_id]) }}">
-                <img src="{{$book->book_image_path}}" class="w-100">
-                <div class="title">
-                    <span>{{$book->title}}</span>
-                </div>
-                <div class="userName">
-                    <span>{{$book->user->name}}</span>
-                </div>
-                @if(isset($book->rental_user_id))
-                <div class="rentalStatus disable">
-                    <span>レンタル不可</span>
-                </div>
-                @else
-                <div class="rentalStatus enable">
-                    <span>レンタル可</span>
-                </div>
-                @endif
+                    <img src="{{$book->book_image_path}}" class="w-100">
+                    <div class="title">
+                        <span>{{$book->title}}</span>
+                    </div>
+                    <div class="userName">
+                        <span>{{$book->user->name}}</span>
+                    </div>
+                    @if(isset($book->rental_user_id))
+                    <div class="rentalStatus disable">
+                        <span>レンタル不可</span>
+                    </div>
+                    @else
+                    <div class="rentalStatus enable">
+                        <span>レンタル可</span>
+                    </div>
+                    @endif
+                </a>
             </div>
             @endforeach
         </div>
