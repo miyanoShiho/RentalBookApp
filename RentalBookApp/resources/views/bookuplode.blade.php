@@ -1,11 +1,15 @@
 @extends('layouts.app')
 
+@section('cssconf')
+<link href="{{ asset('css/bookupload.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-2">
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 form-wrapper">
                 <form action="bookSave" method="post" enctype="multipart/form-data" id="bookForm">
                     @csrf
                     <!-- imageForm -->
