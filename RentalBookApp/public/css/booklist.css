@@ -9,6 +9,11 @@
     padding:15px
 }
 
+.book-wrapper a{
+    text-decoration: none;
+    color: black;
+}
+
 .book-wrapper .title{
     border: medium solid black;
     border-width:2px 2px 1px 2px ;

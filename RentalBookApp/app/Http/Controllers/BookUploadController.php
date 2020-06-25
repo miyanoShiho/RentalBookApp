@@ -17,7 +17,7 @@ class BookUploadController extends Controller
      */
     public function uplode(Request $request)
     {
-        return view('uplode');
+        return view('bookuplode');
     }
 
     /**
@@ -34,7 +34,7 @@ class BookUploadController extends Controller
         ];
         $messages = [
             'bookImagePath.required' => '画像ファイルが選択されていません。',
-            'bookImagePath.image' => '画像ファイルではありません。',
+            'bookImagePath.mimes' => '画像ファイルではありません。',
             'title.required' => '題名が未入力です。',
             'title.max' => '35文字以内で入力して下さい。',
             'body.max' => '200文字以内で入力して下さい。'
@@ -57,23 +57,38 @@ class BookUploadController extends Controller
         if(!File::exists($folder_path)) {
             File::makeDirectory($folder_path);
         }
-        $result = false;
+        
         //ストレージにユーザーidフォルダがある場合
+        $file_save_result = false;
         if(File::exists($folder_path)){
-            $result = InterventionImage::make($file)->resize(750, 750)->save($folder_path.'/' . $new_file_name );
+            $file_save_result = InterventionImage::make($file)->resize(750, 750)->save($folder_path.'/' . $new_file_name );
         }
 
-        //DBにデータを挿入
-        if ($result){
+        //ファイルが保存された場合DBにデータを挿入
+        $db_save_result = false;
+        if ($file_save_result){
             $book_image_path = '/storage/'.$user_id.'/'.$new_file_name;
             $book = new Book;
             $book->user_id = $user_id;
             $book->title = $request->title;
             $book->body = $request->body;
             $book->book_image_path = $book_image_path;
-            $book->save();
-            return redirect()->route('mypage');
+            $db_save_result = $book->save();
+        } else{
+            //ファイルの保存が失敗した場合
+            //エラーページを表示
         }
+
+        //DBへの保存が成功した場合
+        if ($db_save_result){
+            return redirect()->route('mypage');
+        } else{
+            //DBへの保存が失敗した場合
+            File::delete($folder_path.'/' . $new_file_name);
+            //エラーページを表示
+        }
+
+
 
     }
 }
