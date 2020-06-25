@@ -28,22 +28,25 @@
     </table>
     @foreach($books as $book)
     <div class="container">
-        <table　class="container bg-success"　style="padding:30px;margin:30px;width:768px">
-            <tr>
-                <div style="margin:30px">
-                    <img src="{{$book->book_image_path}}" width="300" height="300">
-                    <div class="float-right">
-                        <h4 width="200px">{{$book->title}}</h4>
-                        <button type="submit" class="btn bg-secondary">
-                            {{ __('編集') }}
-                        </button>
-                        <button type="submit" class="btn bg-danger">
-                            {{ __('削除') }}
-                        </button>
+        <form action="/bookUpdate" method="GET">
+            <table　class="container bg-success"　style="padding:30px;margin:30px;width:768px">
+                <tr>
+                    <div style="margin:30px">
+                        <img src="{{$book->book_image_path}}" width="300" height="300">
+                        <div class="float-right">
+                            <h4 width="200px">{{$book->title}}</h4>
+                            <input type="hidden" name="hidBookId" value="{{$book->book_id}}">
+                            <button type="submit" class="btn bg-secondary">
+                                {{ __('編集') }}
+                            </button>
+                            <button type="submit" class="btn bg-danger">
+                                {{ __('削除') }}
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </tr>
-        </table>
+                </tr>
+            </table>
+        </form>
     </div>
     @endforeach
     <div>
