@@ -32,3 +32,6 @@ Route::get('/mypage/selectTakebookList', 'MyPageController@selectTakebookList')-
 
 Route::get('/bookUpload', 'BookUploadController@uplode')->name('bookUpload')->middleware('auth:web');
 Route::post('/bookSave', 'BookUploadController@save')->name('bookSave');
+
+Route::get('/bookUpdate', 'BookUpdateController@update')->name('bookUpdate');
+Route::post('/updateSave', 'BookUpdateController@save')->name('updateSave');

@@ -34,7 +34,7 @@ class BookUploadController extends Controller
         ];
         $messages = [
             'bookImagePath.required' => '画像ファイルが選択されていません。',
-            'bookImagePath.image' => '画像ファイルではありません。',
+            'bookImagePath.mimes' => '画像ファイルではありません。',
             'title.required' => '題名が未入力です。',
             'title.max' => '35文字以内で入力して下さい。',
             'body.max' => '200文字以内で入力して下さい。'
