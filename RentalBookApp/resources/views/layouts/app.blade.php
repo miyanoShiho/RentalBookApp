@@ -57,8 +57,8 @@
                                 {{ __('お知らせ') }} <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                @if (session('notices'))
-                                @foreach(session('notices') as $notice)
+                                @if (isset($notices))
+                                @foreach($notices as $notice)
                                 <a class="dropdown-item" href="{{ route('bookdetail',['bookId'=> $notice->book_id]) }}">
                                     {{ __($notice->body) }}
                                 </a>
