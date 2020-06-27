@@ -5,9 +5,16 @@ namespace App\Http\Middleware;
 use Closure;
 use App\Notice;
 use Illuminate\Http\Request;
+use Illuminate\View\Factory;
 
-class HeaderMiddleware
+class setNotice
 {
+
+    public function __construct(Factory $viewFactory)
+    {
+        $this->viewFactory = $viewFactory;
+    }
+
     /**
      * Handle an incoming request.
      *
@@ -21,7 +28,7 @@ class HeaderMiddleware
         if ($request->session()->exists('user_id')) {
             $userId = $request->session()->get('user_id');
             $notices = Notice::userIdEqual($userId)->get();
-            session(['notices' => $notices]);
+            $this->viewFactory->share('notices', $notices);
         }
         return $next($request);
     }
