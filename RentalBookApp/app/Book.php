@@ -31,6 +31,14 @@ class Book extends Model
     }
 
     /**
+     * BookのNoticeを取得
+     */
+    public function notices()
+    {
+        return $this->hasMany('App\Notice', 'book_id');
+    }
+
+    /**
      * モデルのタイムスタンプを更新するかの指示
      *
      * @var bool
