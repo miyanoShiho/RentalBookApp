@@ -26,8 +26,8 @@ class setNotice
     {
         // ログイン済みの場合、お知らせ情報を取得する
         if ($request->session()->exists('user_id')) {
-            $userId = $request->session()->get('user_id');
-            $notices = Notice::userIdEqual($userId)->get();
+            $user_id = $request->session()->get('user_id');
+            $notices = Notice::userIdEqual($user_id)->get();
             $this->viewFactory->share('notices', $notices);
         }
         return $next($request);

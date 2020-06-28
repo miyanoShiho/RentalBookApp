@@ -14,10 +14,9 @@ class BookUpdateController extends Controller
      * 図書編集画面を表示
      * 
      */
-    public function update(Request $request)
+    public function update(Request $request, $book_id = '0')
     {
         //図書情報取得
-        $book_id = $request->input('hidBookId');
         $book = Book::find($book_id);
         return view('bookUpdate', ['book' => $book]);
     }

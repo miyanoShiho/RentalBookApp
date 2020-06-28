@@ -14,16 +14,12 @@ class BookDetailController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request, $bookId = '0')
+    public function index(Request $request, $book_id = '0')
     {
-        $userId = $request->session()->get('user_id');
-        if ($bookId == '0') {
-            $books = Book::userIdEqual($userId)->first();
-        } else {
-            $books = Book::bookIdEqual($bookId)->first();
-        }
+        $user_id = $request->session()->get('user_id');
+        $books = Book::find($book_id);
         //　ログインユーザーによる表示分岐
-        $displayFlg = 'HIDE_BUTTON';
+        $display_flg = 'HIDE_BUTTON';
         /*
         下記の条件はレンタル申込・レンタル終了ボタンを非表示とする。
         ①ログインユーザーと図書の貸出人が一致する場合
@@ -33,23 +29,23 @@ class BookDetailController extends Controller
         ③ログインユーザーが存在しない場合
         */
         //　ログインユーザーが存在する場合
-        if ($userId != null) {
+        if ($user_id != null) {
             if (
-                $userId == $books->user_id
+                $user_id == $books->user_id
                 && $books->rental_status == '1'
             ) {
                 //　ログインユーザーと図書の貸出人が一致する場合
                 //  図書が貸出中の場合
                 //  レンタル申込ボタンを表示する
-                $displayFlg = 'RENTAL_START_BUTTON';
+                $display_flg = 'RENTAL_START_BUTTON';
             } elseif (
-                $userId != $books->user_id
+                $user_id != $books->user_id
                 && $books->rental_status == '0'
             ) {
                 //　ログインユーザーと図書の貸出人が一致しない場合
                 //　図書が貸出可能な場合
                 //  レンタル終了ボタンを表示する
-                $displayFlg = 'RENTAL_END_BUTTON';
+                $display_flg = 'RENTAL_END_BUTTON';
             }
         }
 
@@ -57,11 +53,11 @@ class BookDetailController extends Controller
         $books->rental_status = $books->rental_status == '0' ? 'レンタル可' : 'レンタル不可';
         // コメント情報取得
         $comments = Comment::select()
-            ->where('book_id', $bookId)
+            ->where('book_id', $book_id)
             ->get();
 
         //print_r($comments);
-        return view('bookdetail', compact('books', 'comments', 'displayFlg', 'bookId'));
+        return view('bookdetail', compact('books', 'comments', 'display_flg', 'book_id'));
     }
 
     /**
@@ -80,16 +76,16 @@ class BookDetailController extends Controller
         $this->validate($request, $validate_rule, $messages);
 
         // リクエストパラメータ
-        $bookId = $request->input('book_id');
-        $userId = $request->session()->get('user_id');
+        $book_id = $request->input('book_id');
+        $user_id = $request->session()->get('user_id');
         $body = $request->input('comment');
 
         //　コメントが初回であるか確認する。
-        $commentCnt = Comment::bookIdEqual($bookId)->count();
+        $commentCnt = Comment::book_idEqual($book_id)->count();
 
         $comment = new Comment;
-        $comment->user_id = $userId;
-        $comment->book_id = $bookId;
+        $comment->user_id = $user_id;
+        $comment->book_id = $book_id;
         $comment->body = $body;
         $comment->save();
 
@@ -97,25 +93,25 @@ class BookDetailController extends Controller
         if ($commentCnt == 0) {
             // お知らせテーブル登録
             $notice = new Notice;
-            $notice->user_id = $userId;
-            $notice->book_id = $bookId;
+            $notice->user_id = $user_id;
+            $notice->book_id = $book_id;
             $notice->body = $body;
             $notice->save();
         } else {
             // 2回目以降
             // お知らせテーブル登録
             $comments = Comment::select('user_id')
-                ->distinct()->where('book_id', $bookId)->where('user_id', '<>', $userId)->get();
+                ->distinct()->where('book_id', $book_id)->where('user_id', '<>', $user_id)->get();
 
             foreach ($comments as $target) {
                 $notice = new Notice;
                 $notice->user_id = $target->user_id;
-                $notice->book_id = $bookId;
+                $notice->book_id = $book_id;
                 $notice->body = $body;
                 $notice->save();
             }
         }
-        return redirect()->route('bookdetail', ['bookId' => $bookId]);
+        return redirect()->route('bookdetail', ['book_id' => $book_id]);
     }
 
     /**
@@ -125,8 +121,8 @@ class BookDetailController extends Controller
     public function commentDelete(Request $request)
     {
         // リクエストパラメータ
-        $bookId = $request->input('book_id');
+        $book_id = $request->input('book_id');
         Comment::commentIdEqual($request->input('comment_id'))->delete();
-        return redirect()->route('bookdetail', ['bookId' => $bookId]);
+        return redirect()->route('bookdetail', ['book_id' => $book_id]);
     }
 }

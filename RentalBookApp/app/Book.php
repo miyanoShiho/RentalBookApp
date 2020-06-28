@@ -46,11 +46,11 @@ class Book extends Model
     }
 
     /**
-     * 条件：book_idで取得
+     * 条件：rental_user_idで取得
      */
-    public function scopeBookIdEqual($query, $id)
+    public function scopeRentalUserIdEqual($query, $id)
     {
-        return $query->where('book_id', $id);
+        return $query->where('rental_user_id', $id);
     }
 
     /**
