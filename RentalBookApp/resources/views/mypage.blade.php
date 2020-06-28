@@ -5,7 +5,7 @@
     <table>
         <tr>
             <td>
-                <a href="{{ route('selectMybookList') }}" class="btn btn-outline-secondary mypage-menu">
+                <a href="{{ route('mypage') }}" class="btn btn-outline-secondary mypage-menu">
                     {{ __('マイブック') }}
 
             </td>
@@ -27,27 +27,26 @@
         </tr>
     </table>
     @foreach($books as $book)
-    <div class="container">
-        <form action="/bookUpdate" method="GET">
-            <table　class="container bg-success"　style="padding:30px;margin:30px;width:768px">
-                <tr>
-                    <div style="margin:30px">
-                        <img src="{{$book->book_image_path}}" width="300" height="300">
-                        <div class="float-right">
-                            <h4 width="200px">{{$book->title}}</h4>
-                            <input type="hidden" name="hidBookId" value="{{$book->book_id}}">
-                            <button type="submit" class="btn bg-secondary">
-                                {{ __('編集') }}
-                            </button>
-                            <button type="submit" class="btn bg-danger">
-                                {{ __('削除') }}
-                            </button>
-                        </div>
-                    </div>
-                </tr>
-            </table>
-        </form>
-    </div>
+    <form action="/mypage/bookDelete" method="POST">
+        @csrf
+        <div class="container">
+            <div class="container bg-success" style="padding:30px;margin:30px;width:768px">
+                <img src="{{$book->book_image_path}}" name="bookImagePath" width="300" height="300">
+                <div class="float-right">
+                    <h4 width="200px">{{$book->title}}</h4>
+                    <a class="btn bg-secondary" href="{{ route('bookUpdate',['book_id'=> $book->book_id]) }}">
+                        {{ __('編集') }}
+                    </a>
+                    <input type="hidden" name="hidBookId" value="{{$book->book_id}}">
+                    <input type="submit" class="btn bg-danger" name="deleteButton" onClick="delete_alert(event);return false;" value="削除">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
     @endforeach
     <div>
+        @endsection
+        @section('jsconf')
+        <script src="{{ asset('/js/common.js') }}"></script>
         @endsection

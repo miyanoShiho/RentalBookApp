@@ -59,7 +59,7 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 @if (isset($notices))
                                 @foreach($notices as $notice)
-                                <a class="dropdown-item" href="{{ route('bookdetail',['bookId'=> $notice->book_id]) }}">
+                                <a class="dropdown-item" href="{{ route('bookdetail',['book_id'=> $notice->book_id]) }}">
                                     {{ __($notice->body) }}
                                 </a>
                                 @endforeach
@@ -67,7 +67,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/mypage') }}">{{ __('マイページ') }}</a>
+                            <a class="nav-link" href="{{ route('mypage') }}">{{ __('マイページ') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();

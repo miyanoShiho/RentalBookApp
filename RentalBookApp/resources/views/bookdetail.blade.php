@@ -40,7 +40,7 @@
                             </tr>
                             <tr>
                                 <input type="hidden" name="comment_id" value="{{$comment->comment_id}}">
-                                <input type="hidden" name="book_id" value="{{$bookId}}">
+                                <input type="hidden" name="book_id" value="{{$book_id}}">
                                 <td>
                                     <input type="submit" class="float-right" name="delete" onClick="delete_alert(event);return false;" value="削除">
                                     <hr>
@@ -62,17 +62,17 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="hidden" name="book_id" value="{{$bookId}}">
+                                    <input type="hidden" name="book_id" value="{{$book_id}}">
                                     <input type="submit" class="btn btn-outline-secondary" style="width:100%" value="コメント送信">
                                 </td>
                             </tr>
-                            @if($displayFlg == 'RENTAL_START_BUTTON')
+                            @if($display_flg == 'RENTAL_START_BUTTON')
                             <tr>
                                 <td>
                                     <input type="submit" class="btn btn-outline-secondary" style="width:100%" value="レンタル申し込み">
                                 </td>
                             </tr>
-                            @elseif($displayFlg == 'RENTAL_END_BUTTON')
+                            @elseif($display_flg == 'RENTAL_END_BUTTON')
                             <tr>
                                 <td>
                                     <input type="submit" class="btn btn-outline-secondary" style="width:100%" value="レンタル終了">
