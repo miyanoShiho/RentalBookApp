@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
  */
 
  //authミドルウェアを適用するルート
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth','sessionCheck'] ], function () {
     Route::post('/bookdetail/commentSave', 'BookDetailController@commentSave');
     Route::post('/bookdetail/commentDelete', 'BookDetailController@commentDelete');
 
