@@ -16,6 +16,9 @@ class BookDetailController extends Controller
      */
     public function index(Request $request, $book_id = '0')
     {
+        // TODO:お知らせフラグ更新処理の追加
+
+
         $user_id = $request->session()->get('user_id');
         $books = Book::find($book_id);
         //　ログインユーザーによる表示分岐
@@ -81,7 +84,7 @@ class BookDetailController extends Controller
         $body = $request->input('comment');
 
         //　コメントが初回であるか確認する。
-        $commentCnt = Comment::book_idEqual($book_id)->count();
+        $commentCnt = Comment::bookIdEqual($book_id)->count();
 
         $comment = new Comment;
         $comment->user_id = $user_id;
