@@ -4,13 +4,21 @@
 <link href="{{ asset('css/.css') }}" rel="stylesheet">
 
 @section('content')
-    <div>
-        <span>タイトル：<span>
+    <div class=row>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div>
+                <span class="h3">タイトル　：{{$title}}</span>
+            </div>
+            <div>
+                <span class="h3">ユーザー名：{{$offer_user_name}}</span>
+            </div>
+            <h2>申し込み完了</h2>
+        </div>
+        <div class="col-md-4">
+        </div>
     </div>
-    <div>
-        <span>ユーザー名：</span>
-    </div>
-    <h2>申し込み完了</h2>
 @endsection
 
 @section('jsconf')
