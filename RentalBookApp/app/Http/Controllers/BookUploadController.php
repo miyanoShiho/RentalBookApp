@@ -17,7 +17,7 @@ class BookUploadController extends Controller
      */
     public function uplode(Request $request)
     {
-        return view('bookuplode');
+        return view('bookupload');
     }
 
     /**
