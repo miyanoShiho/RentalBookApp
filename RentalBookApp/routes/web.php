@@ -31,6 +31,12 @@ Route::group(['middleware' => ['auth','sessionCheck'] ], function () {
     Route::get('/mypage/selectTakebookList', 'MyPageController@selectTakebookList')->name('selectTakebookList');
     Route::post('/mypage/bookDelete', 'MyPageController@bookDelete')->name('bookDelete');
 
+    Route::get('/rentalOffer/{book_id?}', 'RentalOfferController@display')->name('rentalOffer');
+    Route::post('/rentalOffer/offerCheck', 'RentalOfferController@check')->name('offerCheck');
+
+    Route::get('/rentalFinish/{book_id?}', 'RentalFinishController@display')->name('rentalFinish');
+    Route::post('/rentalFinish/finishCheck', 'RentalFinishController@check')->name('finishCheck');
+
 });
 
 Route::get('/', 'BookListController@index')->name('bookList');

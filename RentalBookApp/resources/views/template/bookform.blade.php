@@ -17,7 +17,8 @@
                         <div class="col-md-4">
                         </div>
                         <div class="col-md-6">
-                            <img class="w-100" id="bookImageDisplay"  src=""/>
+                        <img class="w-100" id="bookImageDisplay"  src="@yield('image')"/>
+                        
                         </div>
                         <div class="col-md-2">
                         </div>
@@ -38,7 +39,7 @@
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label" for="TITLE">題名：</label>
                         <div class="col-md-10">
-                            <input name="title" type="text" class="form-control" id="TITLE" value="{{ old('title') }}">
+                        <input name="title" type="text" class="form-control" id="TITLE" value="@yield('inputTitle')">
                         </div>
                     </div>
                     <!-- explanationForm -->
@@ -48,14 +49,14 @@
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label" for="EXPLANATION">説明：</label>
                         <div class="col-md-10">
-                            <textarea name="body" class="form-control" id="EXPLANATION" >{{ old('body', 'おすすめです！') }}</textarea>
+                        <textarea name="body" class="form-control" id="EXPLANATION" >@yield('inputBody')</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2">
                         </div>
                         <div class="col-md-10">
-                            <button name="uploadButton" class="btn btn-primary w-100" type="submit">アップロード</button>
+                            <button name="uploadButton" class="btn btn-primary w-100" type="submit">@yield('buttonValue')</button>
                         </div>
                     </div>
                 </form>

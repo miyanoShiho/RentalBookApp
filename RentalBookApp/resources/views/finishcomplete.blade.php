@@ -1,5 +1,5 @@
 @extends('template.checkrental')
 
 @section('underContent')
-<h2>申し込み完了</h2>
+<h2>レンタル終了が完了しました。</h2>
 @endsection
