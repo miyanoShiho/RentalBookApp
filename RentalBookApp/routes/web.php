@@ -15,15 +15,16 @@ use Illuminate\Support\Facades\Auth;
 |
  */
 
- //authミドルウェアを適用するルート
-Route::group(['middleware' => ['auth','sessionCheck'] ], function () {
+//authミドルウェアを適用するルート
+Route::group(['middleware' => ['auth', 'sessionCheck']], function () {
     Route::post('/bookdetail/commentSave', 'BookDetailController@commentSave');
     Route::post('/bookdetail/commentDelete', 'BookDetailController@commentDelete');
+    Route::get('/bookdetail/{book_id}/{new_flg}/{notice_id}', 'BookDetailController@updateNewFlg')->name('updateNewFlg');
 
     Route::get('/bookUpload', 'BookUploadController@uplode')->name('bookUpload');
     Route::post('/bookSave', 'BookUploadController@save')->name('bookSave');
 
-    Route::get('/bookUpdate/{book_id?}', 'BookUpdateController@update')->name('bookUpdate');
+    Route::get('/bookUpdate/{book_id}', 'BookUpdateController@update')->name('bookUpdate');
     Route::post('/updateSave', 'BookUpdateController@save')->name('updateSave');
 
     Route::get('/mypage/selectMyBookList', 'MyPageController@selectMyBookList')->name('mypage');
@@ -36,7 +37,6 @@ Route::group(['middleware' => ['auth','sessionCheck'] ], function () {
 
     Route::get('/rentalFinish/{book_id?}', 'RentalFinishController@display')->name('rentalFinish');
     Route::post('/rentalFinish/finishCheck', 'RentalFinishController@check')->name('finishCheck');
-
 });
 
 Route::get('/', 'BookListController@index')->name('bookList');
@@ -45,4 +45,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/bookdetail/{book_id?}', 'BookDetailController@index')->name('bookdetail');
+Route::get('/bookdetail/{book_id}', 'BookDetailController@index')->name('bookdetail');
