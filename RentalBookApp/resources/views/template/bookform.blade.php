@@ -10,7 +10,7 @@
             <div class="col-md-2">
             </div>
             <div class="col-md-8 form-wrapper">
-                <form action="bookSave" method="post" enctype="multipart/form-data" id="bookForm">
+                <form action="@yield('actionRoute')" method="post" enctype="multipart/form-data" id="bookForm">
                     @csrf
                     <!-- imageForm -->
                     <div class="row">
@@ -23,6 +23,7 @@
                         <div class="col-md-2">
                         </div>
                     </div>
+                    @yield('inputBookId')
                     @if ($errors->has('bookImagePath'))
                     <div class="alert-danger">{{$errors->first('bookImagePath')}}</div>
                     @endif
