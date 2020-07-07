@@ -56,7 +56,6 @@ class BookDetailController extends Controller
             ->where('book_id', $book_id)
             ->get();
 
-        //print_r($comments);
         return view('bookdetail', compact('books', 'comments', 'display_flg', 'book_id'));
     }
 
@@ -81,7 +80,7 @@ class BookDetailController extends Controller
         $body = $request->input('comment');
 
         //　コメントが初回であるか確認する。
-        $commentCnt = Comment::book_idEqual($book_id)->count();
+        $commentCnt = Comment::bookIdEqual($book_id)->count();
 
         $comment = new Comment;
         $comment->user_id = $user_id;
@@ -123,6 +122,21 @@ class BookDetailController extends Controller
         // リクエストパラメータ
         $book_id = $request->input('book_id');
         Comment::commentIdEqual($request->input('comment_id'))->delete();
+        return redirect()->route('bookdetail', ['book_id' => $book_id]);
+    }
+
+    /**
+     * お知らせ更新処理.
+     *
+     */
+    public function updateNewFlg($book_id = '0', $new_flg = 0, $notice_id = 0)
+    {
+        // お知らせ情報が新しい場合、newフラグを更新する。
+        if ($new_flg == 1) {
+            $notices  = Notice::find($notice_id);
+            $notices->new_flag = 0;
+            $notices->save();
+        }
         return redirect()->route('bookdetail', ['book_id' => $book_id]);
     }
 }
