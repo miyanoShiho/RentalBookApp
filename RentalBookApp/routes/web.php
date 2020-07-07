@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 Route::group(['middleware' => ['auth', 'sessionCheck']], function () {
     Route::post('/bookdetail/commentSave', 'BookDetailController@commentSave');
     Route::post('/bookdetail/commentDelete', 'BookDetailController@commentDelete');
-    Route::get('/bookdetail/{book_id}/{new_flg}/{notice_id}', 'BookDetailController@updateNewFlg')->name('updateNewFlg');
+    Route::get('/bookdetail/{book_id}/{notice_id}', 'BookDetailController@updateNewFlg')->name('updateNewFlg');
 
     Route::get('/bookUpload', 'BookUploadController@uplode')->name('bookUpload');
     Route::post('/bookSave', 'BookUploadController@save')->name('bookSave');
