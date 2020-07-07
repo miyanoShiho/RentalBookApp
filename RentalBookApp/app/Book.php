@@ -39,13 +39,6 @@ class Book extends Model
     }
 
     /**
-     * モデルのタイムスタンプを更新するかの指示
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-
-    /**
      * 条件：user_idで取得
      */
     public function scopeUserIdEqual($query, $id)

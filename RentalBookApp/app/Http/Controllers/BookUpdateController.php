@@ -18,7 +18,7 @@ class BookUpdateController extends Controller
     {
         //図書情報取得
         $book = Book::find($book_id);
-        return view('bookUpdate', ['book' => $book]);
+        return view('bookupdate', ['book' => $book]);
     }
 
     /**
