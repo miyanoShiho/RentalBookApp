@@ -34,6 +34,9 @@ Route::group(['middleware' => ['auth','sessionCheck'] ], function () {
     Route::get('/rentalOffer/{book_id?}', 'RentalOfferController@display')->name('rentalOffer');
     Route::post('/rentalOffer/offerCheck', 'RentalOfferController@check')->name('offerCheck');
 
+    Route::get('/rentalFinish/{book_id?}', 'RentalFinishController@display')->name('rentalFinish');
+    Route::post('/rentalFinish/finishCheck', 'RentalFinishController@check')->name('finishCheck');
+
 });
 
 Route::get('/', 'BookListController@index')->name('bookList');

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Book;
 
-class RentalOfferController extends Controller
+class RentalFinishController extends Controller
 {
     /**
      * レンタル終了画面を表示する
@@ -25,6 +25,8 @@ class RentalOfferController extends Controller
 
     /**
      * レンタル終了処理を実行する
+     * 
+     * @param object $request
      */
     public function check(Request $request){
         $book_id = $request->hidBookId;

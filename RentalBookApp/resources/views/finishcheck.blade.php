@@ -7,7 +7,7 @@
 @section('underContent')
 <div class="button-group">
     <button type="button" onclick="location.href='{{ route('bookdetail', ['book_id' => $book_id])}}'" class="btn btn-danger rounded-pill">キャンセル</button>
-    <form action="/rentalOffer/offerCheck" method="post" id="offerForm"　style="display: inline">
+    <form action="/rentalFinish/finishCheck" method="post" id="offerForm"　style="display: inline">
         @csrf
         <input type="hidden" name="hidBookId" value="{{$book_id}}">
         <input type="hidden" name="hidTitle" value="{{$title}}">
