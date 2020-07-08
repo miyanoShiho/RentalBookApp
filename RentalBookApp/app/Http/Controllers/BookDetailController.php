@@ -129,14 +129,11 @@ class BookDetailController extends Controller
      * お知らせ更新処理.
      *
      */
-    public function updateNewFlg($book_id = '0', $new_flg = 0, $notice_id = 0)
+    public function updateNewFlg($book_id = '0', $notice_id = 0)
     {
-        // お知らせ情報が新しい場合、newフラグを更新する。
-        if ($new_flg == 1) {
-            $notices  = Notice::find($notice_id);
-            $notices->new_flag = 0;
-            $notices->save();
-        }
+        $notices  = Notice::find($notice_id);
+        $notices->new_flag = 0;
+        $notices->save();
         return redirect()->route('bookdetail', ['book_id' => $book_id]);
     }
 }

@@ -60,10 +60,14 @@
                             @isset($notices)
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 @foreach($notices as $notice)
-                                <a class="dropdown-item" href="{{ route('updateNewFlg',['book_id'=> $notice->book_id,'new_flg'=> $notice->new_flag,'notice_id'=> $notice->notice_id]) }}">
-                                    {{ __($notice->body.' '.$notice->created_at) }}
-                                </a>
-                                @endforeach
+                                @if($notice->new_flag == '1')
+                                <a class="dropdown-item" href="{{ route('updateNewFlg',['book_id'=> $notice->book_id,'notice_id'=> $notice->notice_id]) }}">
+                                    @else
+                                    <a class="dropdown-item" href="{{ route('bookdetail',['book_id'=> $notice->book_id]) }}">
+                                        @endif
+                                        {{ __($notice->body.' '.$notice->created_at) }}
+                                    </a>
+                                    @endforeach
                             </div>
                             @endisset
                         </li>
