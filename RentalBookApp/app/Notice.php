@@ -36,4 +36,9 @@ class Notice extends Model
     {
         return $query->where('user_id', $id);
     }
+
+    public function scopeDispDateEqual($query, $sysdate)
+    {
+        return $query->where('created_at', '>=', $sysdate);
+    }
 }

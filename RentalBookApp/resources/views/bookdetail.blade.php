@@ -30,7 +30,7 @@
                     </table>
                     <form action="/bookdetail/commentDelete" method="POST">
                         @csrf
-                        <table width="100%">
+                        <table>
                             @foreach($comments as $comment)
                             <tr>
                                 <td><label>{{$comment->user->name}}</label></td>
@@ -66,21 +66,23 @@
                                     <input type="submit" class="btn btn-outline-secondary" style="width:100%" value="コメント送信">
                                 </td>
                             </tr>
-                            @if($display_flg == 'RENTAL_START_BUTTON')
-                            <tr>
-                                <td>
-                                    <input type="submit" class="btn btn-outline-secondary" style="width:100%" value="レンタル申し込み">
-                                </td>
-                            </tr>
-                            @elseif($display_flg == 'RENTAL_END_BUTTON')
-                            <tr>
-                                <td>
-                                    <input type="submit" class="btn btn-outline-secondary" style="width:100%" value="レンタル終了">
-                                </td>
-                            </tr>
-                            @endif
                         </table>
                     </form>
+                    <table>
+                        @if($display_flg == 'RENTAL_START_BUTTON')
+                        <tr>
+                            <td>
+                                <input type="submit" class="btn btn-outline-secondary" style="width:100%" value="レンタル申し込み">
+                            </td>
+                        </tr>
+                        @elseif($display_flg == 'RENTAL_END_BUTTON')
+                        <tr>
+                            <td>
+                                <input type="submit" class="btn btn-outline-secondary" style="width:100%" value="レンタル終了">
+                            </td>
+                        </tr>
+                        @endif
+                    </table>
                 </div>
             </div>
         </div>
