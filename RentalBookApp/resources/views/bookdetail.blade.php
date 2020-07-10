@@ -13,11 +13,7 @@
                 <div class="card-body w-100">
                     <div class="row body-wrapper">
                         <img class="float-center" src="{{ __($books->book_image_path) }}" width="300" height="300">
-                        <div class="col-md-4">
-                        </div>
-                        <div class="col-md-4">
-                        </div>
-                        <div class="rentalStatus">
+                        <div class="rentalStatus w-100">
                             貸出状況：{{ __($books->rental_status) }}
                         </div>
                         <textarea cols="80" rows="5" placeholder="説明">{{ __($books->body) }}</textarea>
@@ -38,7 +34,7 @@
                                 </div>
                                 <input type="hidden" name="comment_id" value="{{$comment->comment_id}}">
                                 <input type="hidden" name="book_id" value="{{$book_id}}">
-                                <input type="submit" class="float-right" name="delete" onClick="delete_alert(event);return false;" value="削除">
+                                <input type="submit" class="btn btn-secondary float-right" name="delete" onClick="delete_alert(event);return false;" value="削除">
                                 <hr>
                                 @endforeach
                                 <div>
@@ -57,15 +53,15 @@
                                 <tr>
                                     <td>
                                         <input type="hidden" name="book_id" value="{{$book_id}}">
-                                        <input type="submit" class="btn btn-outline-secondary" value="コメント送信">
+                                        <input type="submit" class="btn btn-outline-secondary w-100" value="コメント送信">
                                     </td>
                                 </tr>
                             </table>
                         </form>
                         @if($display_flg == 'RENTAL_START_BUTTON')
-                        <a class="btn btn-outline-secondary" href="{{ route('rentalOffer',['book_id'=> $books->book_id]) }}">レンタル申し込み</a>
+                        <a class="btn btn-outline-secondary w-100" href="{{ route('rentalOffer',['book_id'=> $books->book_id]) }}">レンタル申し込み</a>
                         @elseif($display_flg == 'RENTAL_END_BUTTON')
-                        <a class="btn btn-outline-secondary" href="{{ route('rentalFinish',['book_id'=> $books->book_id]) }}">レンタル終了</a>
+                        <a class="btn btn-outline-secondary w-100" href="{{ route('rentalFinish',['book_id'=> $books->book_id]) }}">レンタル終了</a>
                         @endif
                     </div>
                 </div>
