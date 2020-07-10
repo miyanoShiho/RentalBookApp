@@ -31,19 +31,19 @@ class BookDetailController extends Controller
         //　ログインユーザーが存在する場合
         if ($user_id != null) {
             if (
-                $user_id == $books->user_id
-                && $books->rental_status == '1'
-            ) {
-                //　ログインユーザーと図書の貸出人が一致する場合
-                //  図書が貸出中の場合
-                //  レンタル申込ボタンを表示する
-                $display_flg = 'RENTAL_START_BUTTON';
-            } elseif (
                 $user_id != $books->user_id
                 && $books->rental_status == '0'
             ) {
                 //　ログインユーザーと図書の貸出人が一致しない場合
-                //　図書が貸出可能な場合
+                //  図書が貸出可能な場合
+                //  レンタル申込ボタンを表示する
+                $display_flg = 'RENTAL_START_BUTTON';
+            } elseif (
+                $user_id == $books->user_id
+                && $books->rental_status == '1'
+            ) {
+                //　ログインユーザーと図書の貸出人が一致する場合
+                //　図書が貸出中の場合
                 //  レンタル終了ボタンを表示する
                 $display_flg = 'RENTAL_END_BUTTON';
             }
