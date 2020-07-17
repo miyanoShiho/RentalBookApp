@@ -53,6 +53,12 @@ class Handler extends ExceptionHandler
     {
         $errorMessage = $exception->getMessage();
         Log::error("エラーが発生しました。 : request_url=" . $request->fullUrl() . ', errorMessage=' . $errorMessage);
+
         return parent::render($request, $exception);
+    }
+
+    protected function renderHttpException(\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface $e)
+    {
+        return response()->view("errors.common", ['exception' => $e]);
     }
 }

@@ -13,15 +13,11 @@
                 <form action="@yield('actionRoute')" method="post" enctype="multipart/form-data" id="bookForm">
                     @csrf
                     <!-- imageForm -->
-                    <div class="row">
-                        <div class="col-md-4">
-                        </div>
-                        <div class="col-md-6">
-                        <img class="w-100" id="bookImageDisplay"  src="@yield('image')"/>
+                    <div class="image-wrapper">
                         
-                        </div>
-                        <div class="col-md-2">
-                        </div>
+                        <img class="image" id="bookImageDisplay"  src="@yield('image')"/>
+                        
+                    
                     </div>
                     @yield('inputBookId')
                     @if ($errors->has('bookImagePath'))
