@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('cssconf')
-<link href="{{ asset('css/bookupload.css') }}" rel="stylesheet">
+<link href="{{ asset('css/bookform.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -10,23 +10,22 @@
             <div class="col-md-2">
             </div>
             <div class="col-md-8 form-wrapper">
-                <form action="@yield('actionRoute')" method="post" enctype="multipart/form-data" id="bookForm">
+                <form action="@yield('actionRoute')" method="post" enctype="multipart/form-data">
                     @csrf
                     <!-- imageForm -->
                     <div class="image-wrapper">
-                        
-                        <img class="image" id="bookImageDisplay"  src="@yield('image')"/>
-                        
-                    
+                        <img class="image"  src="@yield('image')"/>
                     </div>
                     @yield('inputBookId')
                     @if ($errors->has('bookImagePath'))
                     <div class="alert-danger">{{$errors->first('bookImagePath')}}</div>
                     @endif
                     <div class="form-group row">
-                        <label class="col-md-2" for="File">本の画像：</label>
+                        <div col class="col-md-2 label-wrapper">
+                            <label>本の画像：</label>
+                        </div>
                         <div class="col-md-10">
-                            <input id="bookImagePath" name="bookImagePath" type="file" class="form-control-file" id="File">
+                            <input name="bookImagePath" type="file" class="form-control-file">
                         </div>
                     </div>
                     <!-- titleForm -->
@@ -34,9 +33,11 @@
                     <div class="alert-danger">{{$errors->first('title')}}</div>
                     @endif
                     <div class="form-group row">
-                        <label class="col-md-2 col-form-label" for="TITLE">題名：</label>
+                        <div col class="col-md-2 label-wrapper" >
+                            <label class="col-form-label">題名　　：</label>
+                        </div>
                         <div class="col-md-10">
-                        <input name="title" type="text" class="form-control" id="TITLE" value="@yield('inputTitle')">
+                            <input name="title" type="text" class="form-control" value="@yield('inputTitle')">
                         </div>
                     </div>
                     <!-- explanationForm -->
@@ -44,9 +45,11 @@
                     <div class="alert-danger">{{$errors->first('body')}}</div>
                     @endif
                     <div class="form-group row">
-                        <label class="col-md-2 col-form-label" for="EXPLANATION">説明：</label>
+                        <div col class="col-md-2 label-wrapper" >
+                            <label class="col-form-label">説明　　：</label>
+                        </div>
                         <div class="col-md-10">
-                        <textarea name="body" class="form-control" id="EXPLANATION" >@yield('inputBody')</textarea>
+                            <textarea name="body" class="form-control">@yield('inputBody')</textarea>
                         </div>
                     </div>
                     <div class="form-group row">

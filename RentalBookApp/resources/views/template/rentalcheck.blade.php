@@ -1,19 +1,17 @@
 @extends('layouts.app')
 
 @section('cssconf')
-<link href="{{ asset('css/.css') }}" rel="stylesheet">
+<link href="{{ asset('css/rentalcheck.css') }}" rel="stylesheet">
+@endsection
+
 
 @section('content')
     <div class=row>
         <div class="col-md-4">
         </div>
         <div class="col-md-4">
-            <div>
-                <span class="h3">タイトル　：{{$title}}</span>
-            </div>
-            <div>
-                <span class="h3">ユーザー名：{{$offer_user_name}}</span>
-            </div>
+            <div class="title h3">タイトル　：{{$title}}</div>
+            <div class="username h3">ユーザー名：{{$offer_user_name}}</div>
             @yield('checkWords')
             @yield('underContent')
         </div>
