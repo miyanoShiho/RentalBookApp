@@ -1,12 +1,20 @@
  .rentalStatus
 {
     padding: 10px;
-    margin-bottom: 10px; 
     border: medium solid black;
     border-width:1px 2px 1px 2px ;
     background-color: #ffff99;
 }
 
+.image-wrapper{
+    margin-bottom: 30px;
+}
+
+.image-wrapper img{
+    width: 350px;
+    height: 350px;
+ 
+}
 .body-wrapper{
     position: relative; 
 }
@@ -15,3 +23,12 @@
     overflow-y: auto; 
     height: 50vh;
 }
+
+.comment-box
+{
+    padding: 10px;
+    padding-bottom: 50px; 
+    border: medium solid black;
+    border-width:1px 2px 1px 2px ;
+}
+
