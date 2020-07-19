@@ -1,5 +1,5 @@
-@extends('template.checkrental')
+@extends('template.rentalcheck')
 
 @section('underContent')
-<h2>申し込み完了</h2>
+<div class="h2">申し込み完了</div>
 @endsection

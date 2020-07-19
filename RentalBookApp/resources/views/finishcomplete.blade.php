@@ -1,5 +1,5 @@
-@extends('template.checkrental')
+@extends('template.rentalcheck')
 
 @section('underContent')
-<h2>レンタル終了が完了しました。</h2>
+<div class="h2">レンタル終了が完了しました。</div>
 @endsection
