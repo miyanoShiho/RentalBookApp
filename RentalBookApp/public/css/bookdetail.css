@@ -2,8 +2,8 @@
 {
     padding: 10px;
     margin-bottom: 10px; 
-    border: 1px dotted #333333; 
-    border-radius: 5px; 
+    border: medium solid black;
+    border-width:1px 2px 1px 2px ;
     background-color: #ffff99;
 }
 
@@ -12,5 +12,6 @@
 }
 
 .comment-wrapper{
-    overflow: scroll;
+    overflow-y: auto; 
+    height: 50vh;
 }
