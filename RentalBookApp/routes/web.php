@@ -46,6 +46,3 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/bookdetail/{book_id}', 'BookDetailController@index')->name('bookdetail');
-
-//テストページを表示するためのルート
-Route::get('/test', 'TestController@test');

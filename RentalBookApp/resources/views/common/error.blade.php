@@ -10,11 +10,12 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <!-- Styles -->
         <link href="{{ asset('css/common.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
-    <body> 
-        <div class="m-4">
-            <img class="w-100 error-image" src="{{ asset('storage/errorback.png') }}">
-        </div>
+    <body>
+        
+        <div class="title m-b-md">
+            エラー画面
+            </div>
+        エラーが起きました
     </body>
 </html>

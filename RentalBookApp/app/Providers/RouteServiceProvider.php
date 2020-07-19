@@ -21,7 +21,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const REGISTAR_HOME = '/mypage/selectMyBookList';
+    public const REGISTAR_HOME = '/mypage';
     /**
      * The path to the "home" route for your application.
      *
