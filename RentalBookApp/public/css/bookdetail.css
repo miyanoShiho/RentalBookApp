@@ -1,0 +1,16 @@
+ .rentalStatus
+{
+    padding: 10px;
+    margin-bottom: 10px; 
+    border: 1px dotted #333333; 
+    border-radius: 5px; 
+    background-color: #ffff99;
+}
+
+.body-wrapper{
+    position: relative; 
+}
+
+.comment-wrapper{
+    overflow: scroll;
+}
