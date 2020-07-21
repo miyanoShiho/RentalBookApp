@@ -1,7 +1,7 @@
 @extends('template.rentalcheck')
 
 @section('checkWords')
-    <p class="checkwords h5">上記の内容でよろしければ、確定ボタンをクリックして下さい。</p>
+    <p class="checkwords h5">上記の内容でよろしければ、確定ボタンを<br>クリックして下さい。</p>
 @endsection
 
 @section('underContent')
