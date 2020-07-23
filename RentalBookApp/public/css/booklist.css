@@ -15,20 +15,20 @@
 }
 
 .book-wrapper .title{
-    border: medium solid black;
-    border-width:2px 2px 1px 2px ;
+    border: medium solid lightgray;
+    border-width:1px 1px 0.5px 1px ;
     background-color: white;
 }
 
 .book-wrapper .userName{
-    border: medium solid black;
-    border-width:1px 2px 1px 2px ;
+    border: medium solid lightgray;
+    border-width:0.5px 1px 0.5px 1px ;
     background-color: white;
 }
 
 .book-wrapper .rentalStatus{
-    border: medium solid black;
-    border-width:1px 2px 2px 2px ;
+    border: medium solid lightgray;
+    border-width:0.5px 1px 1px 1px ;
 }
 
 .book-wrapper .enable{
