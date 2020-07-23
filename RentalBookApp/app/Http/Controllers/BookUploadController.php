@@ -77,6 +77,7 @@ class BookUploadController extends Controller
         } else{
             //ファイルの保存が失敗した場合
             //エラーページを表示
+            abort(500);
         }
 
         //DBへの保存が成功した場合
@@ -86,6 +87,7 @@ class BookUploadController extends Controller
             //DBへの保存が失敗した場合
             File::delete($folder_path.'/' . $new_file_name);
             //エラーページを表示
+            abort(500);
         }
 
 
