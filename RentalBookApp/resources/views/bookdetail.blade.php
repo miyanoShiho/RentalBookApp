@@ -12,13 +12,22 @@
                 <div class="card-header">{{ __($books->title) }}</div>
                 <div class="card-body">
                     <div class="row body-wrapper">
-                        <img class="float-center" src="{{ __($books->book_image_path) }}" width="300" height="300">
+                        <div class="mx-auto image-wrapper">
+                            <img src="{{ __($books->book_image_path) }}" />
+                        </div>
                         <div class="rentalStatus w-100">
                             貸出状況：{{ __($books->rental_status) }}
                         </div>
                         <textarea class="w-100" cols=" 80" rows="5" placeholder="説明">{{ __($books->body) }}</textarea>
-                        <div class="col-md-4">
-                            <b>ユーザー名：{{ __($books->user->name) }}</b>
+                        <div class="w-100">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="bg-secondary text-white">ユーザー名</th>
+                                        <th>{{ __($books->user->name) }}</th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
                         <div class="col-md-4">
                         </div>
@@ -27,16 +36,24 @@
                                 @csrf
                                 <div class="comment-wrapper">
                                     @foreach($comments as $comment)
-                                    <div>
-                                        <label>{{$comment->user->name}}</label>
+                                    <div class="comment-box">
+                                        <div class="w-100">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="bg-secondary text-white">ユーザー名</th>
+                                                        <th>{{ __($comment->user->name) }}</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                        <div>
+                                            <label>{{$comment->body}}</label>
+                                        </div>
+                                        <input type="hidden" name="comment_id" value="{{$comment->comment_id}}">
+                                        <input type="hidden" name="book_id" value="{{$book_id}}">
+                                        <input type="submit" class="btn btn-secondary float-right" name="delete" onClick="delete_alert(event);return false;" value="削除">
                                     </div>
-                                    <div>
-                                        <label>{{$comment->body}}</label>
-                                    </div>
-                                    <input type="hidden" name="comment_id" value="{{$comment->comment_id}}">
-                                    <input type="hidden" name="book_id" value="{{$book_id}}">
-                                    <input type="submit" class="btn btn-secondary float-right" name="delete" onClick="delete_alert(event);return false;" value="削除">
-                                    <hr>
                                     @endforeach
                                 </div>
                             </form>

@@ -13,6 +13,8 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/storage/bookmeet.png">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -60,14 +62,15 @@
                             @isset($notices)
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 @foreach($notices as $notice)
-                                @if($notice->new_flag == '1')
-                                <a class="dropdown-item" href="{{ route('updateNewFlg',['book_id'=> $notice->book_id,'notice_id'=> $notice->notice_id]) }}">
-                                    @else
-                                    <a class="dropdown-item" href="{{ route('bookdetail',['book_id'=> $notice->book_id]) }}">
-                                        @endif
-                                        {{ __($notice->body.' '.$notice->created_at) }}
-                                    </a>
-                                    @endforeach
+                                @for($i = 0;$i < count($notices);$i++) @if($notice->new_flag == '1')
+                                    <a class="dropdown-item" href="{{ route('updateNewFlg',['book_id'=> $notice->book_id,'notice_id'=> $notice->notice_id]) }}">
+                                        @else
+                                        <a class="dropdown-item" href="{{ route('bookdetail',['book_id'=> $notice->book_id]) }}">
+                                            @endif
+                                            {{ __($notice->body.' '.$daysago[$i]) }}
+                                        </a>
+                                        @endfor
+                                        @endforeach
                             </div>
                             @endisset
                         </li>
