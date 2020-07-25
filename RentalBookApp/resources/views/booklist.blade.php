@@ -12,22 +12,24 @@
             @foreach($books as $book)
             <div class="col-4 col-md-3 book-wrapper">
                 <a href="{{ route('bookdetail', ['book_id' => $book->book_id]) }}">
-                    <img src="{{$book->book_image_path}}" class="w-100">
-                    <div class="title">
-                        <span>{{$book->title}}</span>
+                    <div class="card">
+                        <img src="{{$book->book_image_path}}" class="w-100">
+                        <div class="title">
+                            {{$book->title}}
+                        </div>
+                        <div class="userName">
+                            {{$book->user->name}}
+                        </div>
+                        @if(isset($book->rental_user_id))
+                        <div class="rentalStatus disable">
+                            レンタル不可
+                        </div>
+                        @else
+                        <div class="rentalStatus enable">
+                            レンタル可
+                        </div>
+                        @endif
                     </div>
-                    <div class="userName">
-                        <span>{{$book->user->name}}</span>
-                    </div>
-                    @if(isset($book->rental_user_id))
-                    <div class="rentalStatus disable">
-                        <span>レンタル不可</span>
-                    </div>
-                    @else
-                    <div class="rentalStatus enable">
-                        <span>レンタル可</span>
-                    </div>
-                    @endif
                 </a>
             </div>
             @endforeach

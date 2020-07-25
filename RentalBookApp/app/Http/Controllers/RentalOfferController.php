@@ -15,7 +15,18 @@ class RentalOfferController extends Controller
      * @param int $book_id
      */
     public function display(Request $request, $book_id = 0){
+        //レンタルを申し込むbookの情報を取得
         $book = Book::find($book_id);
+
+        //bookが貸出中の場合と、申し込んだユーザーがその本の所持するユーザーの場合、エラー画面へ遷移。
+        $rental_status = $book->rental_status;
+        $owner_user_id = $book->user_id;
+        $offer_user_id = $request->session()->get('user_id');
+        if ($rental_status == 1 || $owner_user_id == $offer_user_id) {
+            //エラー表示
+            abort(500);
+        }
+
         $title = $book->title;
         $offer_user = Auth::user();
         $offer_user_name = $offer_user->name;
@@ -44,6 +55,7 @@ class RentalOfferController extends Controller
             'book_id' => $book_id]);
         } else {
             //エラー表示
+            abort(500);
         }
     }
 
