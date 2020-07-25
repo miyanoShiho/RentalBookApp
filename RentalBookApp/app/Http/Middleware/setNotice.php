@@ -40,33 +40,31 @@ class setNotice
                         ->whereRaw('notices.book_id = book_id');
                 })->get();
 
-            //    お知らせの時間表示について
-            //    要件：
-            // 　　前提：1週間前までしか表示しない仕様
-            // 　　1時間以内
-            // 　　n時間前(24時間単位)
-
-            // 　　7日以内の場合　n日前(7日単位)
+            //    お知らせの時間表示
+            // 　　前提：1週間前までしか表示しない
+            $now = Carbon::now();
             $daysago = array();
             $i = 0;
             foreach ($notices as $notice) {
-
-                $diff = $notice->created_at->diff(Carbon::now());
-
-                if ($diff->days <= 7) {
-                    $diff = $date->diff($notice->created_at);
-
-                    $daysago[$i] = " " . $diff->days . "日前";
-                    $i++;
-                    //dd($daysago);
+                $carbon = Carbon::parse($notice->created_at);
+                $diff = $now->diffInDays($carbon);
+                // 7日以内で1日以上の場合　n日前(7日単位)
+                if ($diff > 0) {
+                    $daysago[$i] = " " . $diff . "日前";
+                } else {
+                    $diffHours = $carbon->diffInHours($now);
+                    if ($diffHours <= 1) {
+                        // 1時間以内
+                        $daysago[$i] = " ";
+                    } else {
+                        // n時間前(24時間単位)
+                        $daysago[$i] = " " . $diffHours . "時間前";
+                    }
                 }
+                $i++;
             }
-
-
             $this->viewFactory->share('notices', $notices);
             $this->viewFactory->share('daysago', $daysago);
-
-            //dd($notices);
         }
 
         return $next($request);
