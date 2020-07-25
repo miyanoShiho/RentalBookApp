@@ -61,16 +61,21 @@
                             </a>
                             @isset($notices)
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                @php
+                                $i = 0;
+                                @endphp
                                 @foreach($notices as $notice)
-                                @for($i = 0;$i < count($notices);$i++) @if($notice->new_flag == '1')
-                                    <a class="dropdown-item" href="{{ route('updateNewFlg',['book_id'=> $notice->book_id,'notice_id'=> $notice->notice_id]) }}">
-                                        @else
-                                        <a class="dropdown-item" href="{{ route('bookdetail',['book_id'=> $notice->book_id]) }}">
-                                            @endif
-                                            {{ __($notice->body.' '.$daysago[$i]) }}
-                                        </a>
-                                        @endfor
-                                        @endforeach
+                                @if($notice->new_flag == '1')
+                                <a class="dropdown-item" href="{{ route('updateNewFlg',['book_id'=> $notice->book_id,'notice_id'=> $notice->notice_id]) }}">
+                                    @else
+                                    <a class="dropdown-item" href="{{ route('bookdetail',['book_id'=> $notice->book_id]) }}">
+                                        @endif
+                                        {{ __($notice->body.' '.$daysago[$i]) }}
+                                    </a>
+                                    @php
+                                    $i++;
+                                    @endphp
+                                    @endforeach
                             </div>
                             @endisset
                         </li>
