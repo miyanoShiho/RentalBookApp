@@ -85,7 +85,7 @@ class BookUpdateController extends Controller
         } else {
             //ファイルの保存が失敗した場合
             //エラーページを表示
-            abort(500);
+            abort(500, 'Internal error. Fail to save image');
         }
 
         //DBへの保存が成功した場合
@@ -102,7 +102,7 @@ class BookUpdateController extends Controller
                 File::delete($folder_path . '/' . $new_file_name);
             }
             //エラーページを表示
-            abort(500);
+            abort(500, 'Internal error. Fail to save db');
         }
     }
 }
