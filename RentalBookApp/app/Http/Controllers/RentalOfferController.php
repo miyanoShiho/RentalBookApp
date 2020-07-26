@@ -24,7 +24,7 @@ class RentalOfferController extends Controller
         $offer_user_id = $request->session()->get('user_id');
         if ($rental_status == 1 || $owner_user_id == $offer_user_id) {
             //エラー表示
-            abort(500);
+            abort(500, 'Internal error. Fail to offer for rental');
         }
 
         $title = $book->title;
@@ -55,7 +55,7 @@ class RentalOfferController extends Controller
             'book_id' => $book_id]);
         } else {
             //エラー表示
-            abort(500);
+            abort(500, 'Internal error. Fail to update book data');
         }
     }
 

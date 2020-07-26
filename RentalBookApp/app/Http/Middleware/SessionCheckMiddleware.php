@@ -23,7 +23,8 @@ class SessionCheckMiddleware
                 session(['user_id' => $user->id, 'user_name' => $user->name]);
             }
         } else {
-            dd("error");
+            //エラーページを表示
+            abort(403, 'Fail to authorize');
         }
         
         return $next($request);
