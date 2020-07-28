@@ -39,6 +39,10 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    /**
+     * ログイン時の認証処理
+     * 
+     */
     protected function authenticated(\Illuminate\Http\Request $request, $user)
     {
         // セッションにユーザー情報を追加

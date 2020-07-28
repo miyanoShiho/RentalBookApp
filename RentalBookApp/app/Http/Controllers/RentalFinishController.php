@@ -37,7 +37,6 @@ class RentalFinishController extends Controller
     /**
      * レンタル終了処理を実行する
      * 
-     * @param object $request
      */
     public function check(Request $request){
         //申し込み情報を取得

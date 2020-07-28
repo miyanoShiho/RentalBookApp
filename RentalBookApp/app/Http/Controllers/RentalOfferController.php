@@ -36,6 +36,7 @@ class RentalOfferController extends Controller
 
     /**
      * レンタル申し込み処理を実行する
+     * 
      */
     public function check(Request $request){
         $book_id = $request->hidBookId;
