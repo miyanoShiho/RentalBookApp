@@ -52,13 +52,22 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         $errorMessage = $exception->getMessage();
+        if (empty($errorMessage)){
+            $errorMessage = '不明のエラーになりました。時間が経ってから再度ログインをお願い致します。';
+        }
         Log::error("エラーが発生しました。 : request_url=" . $request->fullUrl() . ', errorMessage=' . $errorMessage);
 
         return parent::render($request, $exception);
     }
 
+    /**
+     * 共通エラーページ
+     * 
+     */
     protected function renderHttpException(\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface $e)
     {
+        $status = $e->getStatusCode();
+        Log::error('statuscode: ' . $status);
         return response()->view("errors.common", ['exception' => $e]);
     }
 }
