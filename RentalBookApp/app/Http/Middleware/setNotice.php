@@ -55,7 +55,7 @@ class setNotice
                     $diffHours = $carbon->diffInHours($now);
                     if ($diffHours <= 1) {
                         // 1時間以内
-                        $daysago[$i] = " ";
+                        $daysago[$i] = " 1時間以内";
                     } else {
                         // n時間前(24時間単位)
                         $daysago[$i] = " " . $diffHours . "時間前";
