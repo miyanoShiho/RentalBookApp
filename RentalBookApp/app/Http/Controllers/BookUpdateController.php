@@ -24,7 +24,6 @@ class BookUpdateController extends Controller
     /**
      * 図書情報を保存
      * 
-     * 
      */
     public function save(Request $request)
     {
