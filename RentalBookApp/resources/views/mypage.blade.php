@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('pageTitle','マイページ')
+
 @section('cssconf')
 <link href="{{ asset('css/mypage.css') }}" rel="stylesheet">
 @endsection

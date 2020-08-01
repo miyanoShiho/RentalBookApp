@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('pageTitle','図書詳細画面')
+
 @section('cssconf')
 <link href="{{ asset('css/bookdetail.css') }}" rel="stylesheet">
 @endsection
