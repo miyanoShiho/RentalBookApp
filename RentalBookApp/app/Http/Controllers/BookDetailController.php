@@ -56,7 +56,7 @@ class BookDetailController extends Controller
             ->where('book_id', $book_id)
             ->get();
 
-        return view('bookdetail', compact('books', 'comments', 'display_flg', 'book_id'));
+        return view('bookdetail', compact('books', 'comments', 'display_flg', 'book_id', 'user_id'));
     }
 
     /**
