@@ -11,3 +11,12 @@ table{
 ul {
     list-style: none;
   }
+
+.header-color{
+    background-color: #2dd354;
+    
+}
+
+.header-font,.nav-link{
+    color: white;
+}

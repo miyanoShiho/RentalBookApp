@@ -54,7 +54,9 @@
                                         </div>
                                         <input type="hidden" name="comment_id" value="{{$comment->comment_id}}">
                                         <input type="hidden" name="book_id" value="{{$book_id}}">
+                                        @if($user_id == $books->user_id)
                                         <input type="submit" class="btn btn-secondary float-right" name="delete" onClick="delete_alert(event);return false;" value="削除">
+                                        @endif
                                     </div>
                                     @endforeach
                                 </div>
