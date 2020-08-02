@@ -54,7 +54,9 @@
                                         </div>
                                         <input type="hidden" name="comment_id" value="{{$comment->comment_id}}">
                                         <input type="hidden" name="book_id" value="{{$book_id}}">
+                                        @if($display_flg == 'RENTAL_END_BUTTON')
                                         <input type="submit" class="btn btn-secondary float-right" name="delete" onClick="delete_alert(event);return false;" value="削除">
+                                        @endif
                                     </div>
                                     @endforeach
                                 </div>
