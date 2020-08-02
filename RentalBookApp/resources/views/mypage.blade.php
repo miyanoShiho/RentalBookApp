@@ -30,7 +30,7 @@
                         <img src="{{$book->book_image_path}}" name="bookImagePath" width="300" height="300">
                         <div class="float-right">
                             <h4 width="200px">{{$book->title}}</h4>
-                            @if ( !request()->is('*selectTakebookList*') )
+                            @if ($book->rental_status == 0)
                             <a class="btn bg-secondary" href="{{ route('bookUpdate',['book_id'=> $book->book_id]) }}">
                                 {{ __('編集') }}
                             </a>
