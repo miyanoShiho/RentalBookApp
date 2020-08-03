@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('pageTitle','図書一覧')
+
 @section('cssconf')
 <link href="{{ asset('css/booklist.css') }}" rel="stylesheet">
 @endsection

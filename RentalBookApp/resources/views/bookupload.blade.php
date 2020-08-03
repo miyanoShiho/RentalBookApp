@@ -1,5 +1,7 @@
 @extends('template.bookform')
 
+@section('pageTitle','図書アップロード')
+
 @section('actionRoute', route('bookSave'))
 
 @section('image', asset('storage/dummyImage.png'))
