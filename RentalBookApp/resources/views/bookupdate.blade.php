@@ -1,5 +1,7 @@
 @extends('template.bookform')
 
+@section('pageTitle','図書編集')
+
 @section('actionRoute', route('updateSave'))
 
 @section('image', $book->book_image_path)
