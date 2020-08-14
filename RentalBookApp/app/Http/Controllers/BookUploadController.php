@@ -57,39 +57,33 @@ class BookUploadController extends Controller
             File::makeDirectory($folder_path);
         }
         
-        //ストレージにユーザーidフォルダがある場合
+        //ファイルを保存
         $file_save_result = false;
         if(File::exists($folder_path)){
             $file_save_result = InterventionImage::make($file)->resize(750, 750)->save($folder_path.'/' . $new_file_name );
         }
 
-        //ファイルが保存された場合DBにデータを挿入
-        $db_save_result = false;
-        if ($file_save_result){
-            $book_image_path = '/storage/'.$user_id.'/'.$new_file_name;
-            $book = new Book;
-            $book->user_id = $user_id;
-            $book->title = $request->title;
-            $book->body = $request->body;
-            $book->book_image_path = $book_image_path;
-            $db_save_result = $book->save();
-        } else{
-            //ファイルの保存が失敗した場合
-            //エラーページを表示
+        if (!$file_save_result) {
             abort(500, 'Internal error. Fail to save image');
         }
 
-        //DBへの保存が成功した場合
-        if ($db_save_result){
-            return redirect()->route('mypage');
-        } else{
-            //DBへの保存が失敗した場合
+        //DBにデータを挿入
+        $db_save_result = false;
+        $book_image_path = '/storage/'.$user_id.'/'.$new_file_name;
+        $book = new Book;
+        $book->user_id = $user_id;
+        $book->title = $request->title;
+        $book->body = $request->body;
+        $book->book_image_path = $book_image_path;
+        $db_save_result = $book->save();
+        
+        if (!$db_save_result) {
+            //DBへの保存が失敗した場合ファイルを削除
             File::delete($folder_path.'/' . $new_file_name);
-            //エラーページを表示
             abort(500, 'Internal error. Fail to save db');
         }
-
-
-
+        
+        return redirect()->route('mypage');
+            
     }
 }
