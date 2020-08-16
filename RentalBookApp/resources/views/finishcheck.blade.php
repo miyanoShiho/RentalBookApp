@@ -1,5 +1,7 @@
 @extends('template.rentalcheck')
 
+@section('pageTitle','レンタル終了確認')
+
 @section('checkWords')
 <p class="h6">上記の内容でよろしければ、確定ボタンを<br>クリックして下さい。</p>
 @endsection
