@@ -14,18 +14,18 @@
                     @csrf
                     <!-- imageForm -->
                     <div class="image-wrapper">
-                        <img class="image"  src="@yield('image')"/>
+                        <img id="bookImageDisplay" class="image"  src="@yield('image')"/>
                     </div>
                     @yield('inputBookId')
                     @if ($errors->has('bookImagePath'))
                     <div class="alert-danger">{{$errors->first('bookImagePath')}}</div>
                     @endif
                     <div class="form-group row">
-                        <div col class="col-md-2 label-wrapper">
+                        <div class="col-md-2 label-wrapper">
                             <label>本の画像：</label>
                         </div>
                         <div class="col-md-10">
-                            <input name="bookImagePath" type="file" class="form-control-file">
+                            <input id="bookImagePath" name="bookImagePath" type="file" class="form-control-file">
                         </div>
                     </div>
                     <!-- titleForm -->
@@ -33,7 +33,7 @@
                     <div class="alert-danger">{{$errors->first('title')}}</div>
                     @endif
                     <div class="form-group row">
-                        <div col class="col-md-2 label-wrapper" >
+                        <div class="col-md-2 label-wrapper" >
                             <label class="col-form-label">題名　　：</label>
                         </div>
                         <div class="col-md-10">
@@ -45,7 +45,7 @@
                     <div class="alert-danger">{{$errors->first('body')}}</div>
                     @endif
                     <div class="form-group row">
-                        <div col class="col-md-2 label-wrapper" >
+                        <div class="col-md-2 label-wrapper" >
                             <label class="col-form-label">説明　　：</label>
                         </div>
                         <div class="col-md-10">

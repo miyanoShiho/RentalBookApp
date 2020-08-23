@@ -42,14 +42,10 @@ class BookUpdateController extends Controller
         $this->validate($request, $validate_rule, $messages);
 
         //ファイルが選択された場合ファイルを保存
-        $file_exists_flag = 0;
         $file_save_result = false;
         $folder_path;
         $new_file_name;
         if ($request->file('bookImagePath')) {
-            //ファイル存在フラグを立てる
-            $file_exists_flag = 1;
-
             //現在の日時取得
             $now = Carbon::now();
             $now = $now->format('Ymdhms');
@@ -62,12 +58,17 @@ class BookUpdateController extends Controller
             $file_extension = '.' . $file->getClientOriginalExtension();
             $new_file_name = $old_file_name . $now . $file_extension;
             $file_save_result = InterventionImage::make($file)->resize(750, 750)->save($folder_path . '/' . $new_file_name);
+            if (!$file_save_result) {
+                abort(500, 'Internal error. Fail to save image');
+            }
         }
 
-        //ファイルが保存された場合
+        
         $db_save_result = false;
         $prev_file_name;
         if ($file_save_result) {
+            //ファイルが保存された場合
+            //DBにデータを挿入し、前ファイルを削除
             $book = Book::find($request->hidBookId);
             $prev_file_name = basename($book->book_image_path);
             $book->title = $request->title;
@@ -75,33 +76,26 @@ class BookUpdateController extends Controller
             $book_image_path = '/storage/' . $user_id . '/' . $new_file_name;
             $book->book_image_path = $book_image_path;
             $db_save_result = $book->save();
-        } elseif ($file_exists_flag == 0) {
+            if (!$db_save_result){
+                //保存したファイルを削除
+                File::delete($folder_path . '/' . $new_file_name);
+                abort(500, 'Internal error. Fail to save db');
+            }
+            //前ファイルを削除
+            File::delete($folder_path . '/' . $prev_file_name);
+            
+        } else {
             //ファイルが未選択の場合
+            //DBにデータを挿入
             $book = Book::find($request->hidBookId);
             $book->title = $request->title;
             $book->body = $request->body;
             $db_save_result = $book->save();
-        } else {
-            //ファイルの保存が失敗した場合
-            //エラーページを表示
-            abort(500, 'Internal error. Fail to save image');
-        }
+            if (!$db_save_result){
+                abort(500, 'Internal error. Fail to save db');
+            }
+        } 
 
-        //DBへの保存が成功した場合
-        if ($db_save_result) {
-            //ファイルを更新した場合は前ファイルを削除
-            if ($file_save_result) {
-                File::delete($folder_path . '/' . $prev_file_name);
-            }
-            return redirect()->route('mypage');
-        } else {
-            //DBへの保存が失敗した場合
-            //ファイルを保存した場合はファイルを削除
-            if ($file_save_result) {
-                File::delete($folder_path . '/' . $new_file_name);
-            }
-            //エラーページを表示
-            abort(500, 'Internal error. Fail to save db');
-        }
+        return redirect()->route('mypage');
     }
 }
