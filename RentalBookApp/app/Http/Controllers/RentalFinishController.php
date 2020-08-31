@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Book;
 use App\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class RentalFinishController extends Controller
 {
@@ -47,19 +49,22 @@ class RentalFinishController extends Controller
         $offer_user_id = $offer_user->id;
         $offer_user_name = $offer_user->name;
 
-        //図書情報を更新
-        $book = Book::where('book_id', $book_id)->where('rental_status', 1)->first();
-        $book->rental_status = 0;
-        $book->rental_user_id = null;
-        $result = $book->save();
-        
-        if ($result){
-            return view('finishcomplete', ['title' => $title, 'offer_user_name' => $offer_user_name, 
-            'book_id' => $book_id]);
-        } else {
+        try {
+            //図書情報を更新
+            $book = Book::where('book_id', $book_id)->where('rental_status', 1)->first();
+            $book->rental_status = 0;
+            $book->rental_user_id = null;
+            $book->save();
+        } catch(\Exception $e) {
+            //ログ出力
+            Log::error($e->getMessage());
             //エラー表示
             abort(500, 'Internal error. Fail to update book data');
         }
+        
+        return view('finishcomplete', ['title' => $title, 'offer_user_name' => $offer_user_name, 
+        'book_id' => $book_id]);
+    
     }
 
 }

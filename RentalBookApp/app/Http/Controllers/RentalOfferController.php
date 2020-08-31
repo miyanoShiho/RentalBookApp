@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Book;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class RentalOfferController extends Controller
 {
@@ -45,19 +47,21 @@ class RentalOfferController extends Controller
         $offer_user_id = $offer_user->id;
         $offer_user_name = $offer_user->name;
 
-        //図書情報を更新
-        $book = Book::where('book_id', $book_id)->where('rental_status', 0)->first();
-        $book->rental_status = 1;
-        $book->rental_user_id = $offer_user_id;
-        $result = $book->save();
-        
-        if ($result){
-            return view('offercomplete', ['title' => $title, 'offer_user_name' => $offer_user_name, 
-            'book_id' => $book_id]);
-        } else {
+        try {
+            $book = Book::where('book_id', $book_id)->where('rental_status', 0)->first();
+            $book->rental_status = 1;
+            $book->rental_user_id = $offer_user_id;
+            $book->save();
+        } catch (\Exception $e) {
+            //ログ出力
+            Log::error($e->getMessage());
             //エラー表示
             abort(500, 'Internal error. Fail to update book data');
         }
+        
+        return view('offercomplete', ['title' => $title, 'offer_user_name' => $offer_user_name, 
+        'book_id' => $book_id]);
+        
     }
 
 }
