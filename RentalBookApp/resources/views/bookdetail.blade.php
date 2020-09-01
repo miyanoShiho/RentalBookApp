@@ -76,15 +76,15 @@
                                 <tr>
                                     <td>
                                         <input type="hidden" name="book_id" value="{{$book_id}}">
-                                        <input type="submit" class="btn btn-outline-secondary w-100" value="コメント送信">
+                                        <input type="submit" class="btn bg-secondary text-white w-100" value="コメント送信">
                                     </td>
                                 </tr>
                             </table>
                         </form>
                         @if($display_flg == 'RENTAL_START_BUTTON')
-                        <a class="btn btn-outline-secondary w-100" href="{{ route('rentalOffer',['book_id'=> $books->book_id]) }}">レンタル申し込み</a>
+                        <a class="btn bg-danger text-white w-100" href="{{ route('rentalOffer',['book_id'=> $books->book_id]) }}">レンタル申し込み</a>
                         @elseif($display_flg == 'RENTAL_END_BUTTON')
-                        <a class="btn btn-outline-secondary w-100" href="{{ route('rentalFinish',['book_id'=> $books->book_id]) }}">レンタル終了</a>
+                        <a class="btn bg-danger text-white w-100" href="{{ route('rentalFinish',['book_id'=> $books->book_id]) }}">レンタル終了</a>
                         @endif
                     </div>
                 </div>
