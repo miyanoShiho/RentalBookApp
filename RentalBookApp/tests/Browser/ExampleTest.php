@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
+// 画面遷移テスト
 class ExampleTest extends DuskTestCase
 {
     /**

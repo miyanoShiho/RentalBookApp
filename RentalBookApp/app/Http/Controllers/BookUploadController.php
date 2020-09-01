@@ -7,6 +7,8 @@ use App\Book;
 use Carbon\Carbon;
 use \InterventionImage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 
 class BookUploadController extends Controller
@@ -44,42 +46,45 @@ class BookUploadController extends Controller
         $now = Carbon::now();
         $now = $now->format('Ymdhms'); 
 
-        //アップロードされたファイルを保存
-        $user_id = $request->session()->get('user_id');
-        $folder_path =  storage_path().'/app/public/'. $user_id;
-        $file = $request->file('bookImagePath');
-        $old_file_name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-        $file_extension = '.'.$file->getClientOriginalExtension();
-        $new_file_name = $old_file_name.$now.$file_extension;
-        
-        //ストレージにユーザーidフォルダがない場合
-        if(!File::exists($folder_path)) {
-            File::makeDirectory($folder_path);
-        }
-        
-        //ファイルを保存
-        $file_save_result = false;
-        if(File::exists($folder_path)){
-            $file_save_result = InterventionImage::make($file)->resize(750, 750)->save($folder_path.'/' . $new_file_name );
+        try {
+            //アップロードされたファイルを保存
+            $user_id = $request->session()->get('user_id');
+            $folder_path =  storage_path().'/app/public/'. $user_id;
+            $file = $request->file('bookImagePath');
+            $old_file_name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $file_extension = '.'.$file->getClientOriginalExtension();
+            $new_file_name = $old_file_name.$now.$file_extension;
+            
+            //ストレージにユーザーidフォルダがない場合
+            if(!File::exists($folder_path)) {
+                //idフォルダを作成
+                File::makeDirectory($folder_path);
+            }
+            
+            //ファイルを保存
+            InterventionImage::make($file)->resize(750, 750)->save($folder_path.'/' . $new_file_name );
+        } catch (\Exception $e) {
+            //ログ出力
+            Log::error($e->getMessage());
+            //httpエラーをスロー
+            abort(500, 'Internal error. Fail to image file');
         }
 
-        if (!$file_save_result) {
-            abort(500, 'Internal error. Fail to save image');
-        }
-
-        //DBにデータを挿入
-        $db_save_result = false;
-        $book_image_path = '/storage/'.$user_id.'/'.$new_file_name;
-        $book = new Book;
-        $book->user_id = $user_id;
-        $book->title = $request->title;
-        $book->body = $request->body;
-        $book->book_image_path = $book_image_path;
-        $db_save_result = $book->save();
-        
-        if (!$db_save_result) {
+        try{
+            //DBにデータを挿入
+            $book_image_path = '/storage/'.$user_id.'/'.$new_file_name;
+            $book = new Book;
+            $book->user_id = $user_id;
+            $book->title = $request->title;
+            $book->body = $request->body;
+            $book->book_image_path = $book_image_path;
+            $book->save();
+        } catch(\Exception $e) {
             //DBへの保存が失敗した場合ファイルを削除
             File::delete($folder_path.'/' . $new_file_name);
+            //ログ出力
+            Log::error($e->getMessage());
+            //httpエラーをスロー
             abort(500, 'Internal error. Fail to save db');
         }
         
