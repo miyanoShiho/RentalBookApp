@@ -2,79 +2,106 @@
 
 namespace Tests\Browser;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
+use Tests\Browser\Components\dbLog;
+use Tests\Browser\Pages\login;
+use Tests\Browser\Pages\BookDatail;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
-// 図書詳細　各処理
+/**
+ * 図書詳細　各処理
+ *
+ */
 class BookDetailTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
+    private $loginUser1 = array(
+        "email" => "test1@gmail.com",
+        "pass" => "kn08XYFaRB6QDhjxQP",
+    );
+
+    private $loginUser2 = array(
+        "email" => "test2@gmail.com",
+        "pass" => "lLRKvzU2nwpHhoBJ6E",
+    );
+    private $linkButton = '確定';
+
 
     // ログイン無し
     public function testNotLogin()
     {
-        $this->testBookdetail();
+        Log::info("--duskテスト実行開始--");
+        $this->testBookdetail("ログイン無_図書詳細画面", "ログイン無_図書詳細情報");
     }
 
     // ログイン有り
-    public function testLogin()
+    public function testLogin(array $array = null)
     {
-        $this->browse(function (Browser $browser) {
-            $title = 'ログイン画面';
-            $browser->visit('http://localhost:8000/login')
-                ->assertTitle($title)
-                ->type('email', 'test1@gmail.com')
-                ->type('password', 'kn08XYFaRB6QDhjxQP')
-                ->click('.btn-primary')
-                ->assertSee('BookMe');
+        if ($array == null) {
+            $array = $this->loginUser1;
+        }
+        $this->browse(function (Browser $browser) use ($array) {
+            $browser->visit(new Login)
+                ->loginPress($array);
         });
     }
 
     // 図書詳細画面
-    public function testBookdetail($book_id = null)
+    public function testBookdetail($screenTitle = "図書詳細画面初期遷移", $logTitle = "図書詳細情報取得")
     {
-        if ($book_id == null) {
-            $this->testBookdetail(4);
-        } else {
-            $this->browse(function (Browser $browser) use ($book_id) {
-                $title = '図書詳細画面';
-                $browser->visit('http://localhost:8000/bookdetail/' . $book_id)
-                    ->screenshot('bookdatail_init_id:' . $book_id . Carbon::now() . '_01');
-                $browser->driver->executeScript('window.scrollTo(0, 1500);');
+        // 登録されているブックID
+        $book_id = 11;
 
-                $browser->screenshot('bookdatail_init_id:' . $book_id . Carbon::now() . '_02')
-                    ->assertTitle($title);
-            });
-        }
+        $this->browse(function (Browser $browser) use ($book_id, $screenTitle) {
+
+            $browser->visit(new BookDatail($book_id))
+                ->screenshot('bookdatail_init_id:' . $screenTitle . '_01');
+            $browser->driver->executeScript('window.scrollTo(0, 1500);');
+
+            $browser->screenshot('bookdatail_init_id:' . $screenTitle . '_02');
+        });
+
+        // 表示されている図書詳細情報のDB検証
+        $log = new dbLog();
+        $log->selectBookdetailList($book_id, $logTitle);
     }
 
     // コメント確定ボタン押下
     public function testAddComment()
     {
+        // 事前：追加されたコメント情報のDB検証
+        $sysdate = Carbon::now();
+        $log = new dbLog();
+        $log->selectAddComment($sysdate);
         $this->browse(function (Browser $browser) {
             $comment = 'これはduskです';
             $browser->type('comment', $comment)
                 ->screenshot('bookdetail_comment')
-                ->assertSee($comment)
+                ->assertInputValue('comment', $comment)
                 ->press('コメント送信');
         });
+        // 事後:追加されたコメント情報のDB検証
+        $log = new dbLog();
+        $log->selectAddComment($sysdate);
     }
 
     // レンタル申し込みボタン押下
     public function testRentalStart()
     {
+        $this->testLogout();
+        $this->testLogin($this->loginUser2);
+        $this->testBookdetail("レンタル申込", "レンタル申込前_図書詳細情報");
         $this->browse(function (Browser $browser) {
             $linkText = 'レンタル申し込み';
+
             $title = 'レンタル申込確認';
+            // レンタル申し込みボタン押下
             $browser->clickLink($linkText)
                 ->screenshot('bookdetail_rental_start')
                 ->assertTitle($title);
+            // 確定ボタン押下(レンタル終了のためのレンタル開始更新)
+            $browser->press($this->linkButton);
         });
     }
 
@@ -93,13 +120,16 @@ class BookDetailTest extends DuskTestCase
     public function testRentalEnd()
     {
         $this->testLogin();
-        $this->testBookdetail(3);
+        $this->testBookdetail("レンタル終了", "レンタル申込後_図書詳細情報");
         $this->browse(function (Browser $browser) {
             $linkText = 'レンタル終了';
             $assertText = 'レンタル終了確認';
             $browser->clickLink($linkText)
                 ->screenshot('bookdetail_rental_end')
                 ->assertTitle($assertText);
+            // 確定ボタン押下(テストリセットのためのレンタル終了更新)
+            $browser->press($this->linkButton);
         });
+        Log::info("--duskテスト実行終了--");
     }
 }
