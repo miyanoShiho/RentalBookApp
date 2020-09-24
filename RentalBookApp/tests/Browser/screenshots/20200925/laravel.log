@@ -1,0 +1,77 @@
+[2020-09-25 06:36:55] local.INFO: --duskテスト実行開始--  
+[2020-09-25 06:36:57] local.INFO: ログイン無_図書詳細情報  
+[2020-09-25 06:36:57] local.INFO: array (
+  0 => 
+  array (
+    'book_id' => 11,
+    'user_id' => 1,
+    'rental_user_id' => NULL,
+    'title' => 'テストブック1',
+    'body' => 'おすすめです！',
+    'book_image_path' => '/storage/1/kimetu1820200920080938.jpg',
+    'rental_status' => 0,
+    'created_at' => '2020-09-20T11:33:38.000000Z',
+    'updated_at' => '2020-09-24T21:34:29.000000Z',
+  ),
+)  
+[2020-09-25 06:36:59] local.INFO: 図書詳細情報取得  
+[2020-09-25 06:36:59] local.INFO: array (
+  0 => 
+  array (
+    'book_id' => 11,
+    'user_id' => 1,
+    'rental_user_id' => NULL,
+    'title' => 'テストブック1',
+    'body' => 'おすすめです！',
+    'book_image_path' => '/storage/1/kimetu1820200920080938.jpg',
+    'rental_status' => 0,
+    'created_at' => '2020-09-20T11:33:38.000000Z',
+    'updated_at' => '2020-09-24T21:34:29.000000Z',
+  ),
+)  
+[2020-09-25 06:36:59] local.INFO: コメント情報取得  
+[2020-09-25 06:36:59] local.INFO: array (
+)  
+[2020-09-25 06:37:00] local.INFO: コメント情報取得  
+[2020-09-25 06:37:00] local.INFO: array (
+  0 => 
+  array (
+    'comment_id' => 108,
+    'user_id' => 1,
+    'book_id' => 11,
+    'body' => 'これはduskです',
+    'created_at' => '2020-09-24T21:37:00.000000Z',
+    'updated_at' => '2020-09-24T21:37:00.000000Z',
+  ),
+)  
+[2020-09-25 06:37:01] local.INFO: レンタル申込前_図書詳細情報  
+[2020-09-25 06:37:01] local.INFO: array (
+  0 => 
+  array (
+    'book_id' => 11,
+    'user_id' => 1,
+    'rental_user_id' => NULL,
+    'title' => 'テストブック1',
+    'body' => 'おすすめです！',
+    'book_image_path' => '/storage/1/kimetu1820200920080938.jpg',
+    'rental_status' => 0,
+    'created_at' => '2020-09-20T11:33:38.000000Z',
+    'updated_at' => '2020-09-24T21:34:29.000000Z',
+  ),
+)  
+[2020-09-25 06:37:04] local.INFO: レンタル申込後_図書詳細情報  
+[2020-09-25 06:37:04] local.INFO: array (
+  0 => 
+  array (
+    'book_id' => 11,
+    'user_id' => 1,
+    'rental_user_id' => 2,
+    'title' => 'テストブック1',
+    'body' => 'おすすめです！',
+    'book_image_path' => '/storage/1/kimetu1820200920080938.jpg',
+    'rental_status' => 1,
+    'created_at' => '2020-09-20T11:33:38.000000Z',
+    'updated_at' => '2020-09-24T21:37:02.000000Z',
+  ),
+)  
+[2020-09-25 06:37:04] local.INFO: --duskテスト実行終了--  
