@@ -76,7 +76,7 @@
                                 <tr>
                                     <td>
                                         <input type="hidden" name="book_id" value="{{$book_id}}">
-                                        <input type="submit" class="btn bg-secondary text-white w-100" value="コメント送信">
+                                        <input type="submit" class="comment_submit btn bg-secondary text-white w-100" value="コメント送信">
                                     </td>
                                 </tr>
                             </table>
