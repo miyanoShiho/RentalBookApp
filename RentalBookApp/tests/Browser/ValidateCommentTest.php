@@ -43,7 +43,7 @@ class ValidateCommentTest extends DuskTestCase
    {
         $this->browse(function (Browser $browser) {
             $browser->type('comment', '')
-                ->click('.comment_submit');
+                ->press('コメント送信');
             $browser->driver->executeScript('window.scrollTo(0, 950);');
             $browser->screenshot('validate_bookdetail_comment_required');
         });
