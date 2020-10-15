@@ -21,10 +21,10 @@
                     <div class="alert-danger">{{$errors->first('bookImagePath')}}</div>
                     @endif
                     <div class="form-group row">
-                        <div class="col-md-2 label-wrapper">
+                        <div class="col-3 label-wrapper">
                             <label>本の画像：</label>
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-9">
                             <input id="bookImagePath" name="bookImagePath" type="file" class="form-control-file">
                         </div>
                     </div>
@@ -33,10 +33,10 @@
                     <div class="alert-danger">{{$errors->first('title')}}</div>
                     @endif
                     <div class="form-group row">
-                        <div class="col-md-2 label-wrapper" >
-                            <label class="col-form-label">題名　　：</label>
+                        <div class="col-3 label-wrapper" >
+                            <label class="col-form-label">題名：</label>
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-9">
                             <input name="title" type="text" class="form-control" value="@yield('inputTitle')">
                         </div>
                     </div>
@@ -45,18 +45,20 @@
                     <div class="alert-danger">{{$errors->first('body')}}</div>
                     @endif
                     <div class="form-group row">
-                        <div class="col-md-2 label-wrapper" >
-                            <label class="col-form-label">説明　　：</label>
+                        <div class="col-3 label-wrapper" >
+                            <label class="col-form-label">説明：</label>
                         </div>
-                        <div class="col-md-10">
-                            <textarea name="body" class="form-control">@yield('inputBody')</textarea>
+                        <div class="col-9">
+                            <textarea name="body" rows="4" class="form-control">@yield('inputBody')</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-6">
                             <button name="uploadButton" class="btn btn-primary w-100" type="submit">@yield('buttonValue')</button>
+                        </div>
+                        <div class="col-md-3">
                         </div>
                     </div>
                 </form>
