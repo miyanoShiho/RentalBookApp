@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <div class="row body-wrapper">
                         <div class="mx-auto image-wrapper">
-                            <img src="{{ __($books->book_image_path) }}" />
+                            <img class="w-100" src="{{ __($books->book_image_path) }}" />
                         </div>
                         <div class="rentalStatus w-100">
                             貸出状況：{{ __($books->rental_status) }}
