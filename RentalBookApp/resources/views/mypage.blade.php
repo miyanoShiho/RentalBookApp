@@ -24,9 +24,9 @@
         @foreach($books as $book)
         <form action="/mypage/bookDelete" method="POST">
             @csrf
-            <div class="container　mypage-wrapper">
+            <div class="mypage-wrapper">
                 <div class="row">
-                    <div class="container bg-success" style="padding:30px;margin:30px;width:768px">
+                    <div class="container bg-success" style="padding:20px 15px;margin:15px 5px;">
                         <img src="{{$book->book_image_path}}" name="bookImagePath" width="300" height="300">
                         <div class="float-right">
                             <h4 width="200px">{{$book->title}}</h4>
