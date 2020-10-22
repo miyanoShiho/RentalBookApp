@@ -14,7 +14,7 @@
                     @csrf
                     <!-- imageForm -->
                     <div class="image-wrapper">
-                        <img id="bookImageDisplay" class="image"  src="@yield('image')"/>
+                        <img id="bookImageDisplay" class="img-fluid"  src="@yield('image')"/>
                     </div>
                     @yield('inputBookId')
                     @if ($errors->has('bookImagePath'))
