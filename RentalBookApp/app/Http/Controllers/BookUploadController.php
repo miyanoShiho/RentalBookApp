@@ -72,7 +72,7 @@ class BookUploadController extends Controller
 
         try{
             //DBにデータを挿入
-            $book_image_path = '/storage/'.$user_id.'/'.$new_file_name;
+            $book_image_path = 'storage/'.$user_id.'/'.$new_file_name;
             $book = new Book;
             $book->user_id = $user_id;
             $book->title = $request->title;
