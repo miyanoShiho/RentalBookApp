@@ -78,12 +78,13 @@ class BookDetailController extends Controller
 
         // リクエストパラメータ
         $book_id = $request->input('book_id');
+        $book_uid = $request->input('book_user_id');
         $user_id = $request->session()->get('user_id');
         $body = $request->input('comment');
 
         try {
             // トランザクション
-            DB::transaction(function () use ($book_id, $user_id, $body) {
+            DB::transaction(function () use ($book_id, $user_id, $body, $book_uid) {
                 //　コメントが初回であるか確認する。
                 $commentCnt = Comment::bookIdEqual($book_id)->count();
 
@@ -98,7 +99,7 @@ class BookDetailController extends Controller
                 if ($commentCnt == 0) {
                     // お知らせテーブル登録
                     $notice = new Notice;
-                    $notice->user_id = $user_id;
+                    $notice->user_id = $book_uid;
                     $notice->book_id = $book_id;
                     $notice->body = $body;
                     $notice->save();
