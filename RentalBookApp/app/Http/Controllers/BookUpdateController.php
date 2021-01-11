@@ -80,7 +80,7 @@ class BookUpdateController extends Controller
                 $prev_file_name = basename($book->book_image_path);
                 $book->title = $request->title;
                 $book->body = $request->body;
-                $book_image_path = 'storage/' . $user_id . '/' . $new_file_name;
+                $book_image_path = '/storage/' . $user_id . '/' . $new_file_name;
                 $book->book_image_path = $book_image_path;
                 $book->save();
             } catch (\Exception $e) {
