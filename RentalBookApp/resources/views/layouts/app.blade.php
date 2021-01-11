@@ -14,7 +14,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="storage/bookmeet.png">
+    <link rel="shortcut icon" href="/storage/bookmeet.png">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -31,7 +31,7 @@
         <nav class="navbar navbar-expand flex-column flex-md-row shadow-sm header-color">
             <!-- Left Side Of Navbar -->
             <a class="navbar-brand header-font ml-5" href="{{ url('/') }}">
-                <img class="topimage" src="storage/bookmeet_white.png">
+                <img class="topimage" src="../storage/bookmeet_white.png">
                 {{ config('app.name', 'BookMe') }}
             </a>
             <!-- Right Side Of Navbar -->
